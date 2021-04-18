@@ -17,29 +17,26 @@ use App\Http\Controllers\AdminController;
     return view('home');
 }); */
 
-Route::get('/admin',[AdminController::class, 'login'])->name('admin.login');
-Route::get('/admin/registration',[AdminController::class, 'registration'])->name('admin.registration');
+/* Admin */
+
 Route::post('/admin/save',[AdminController::class, 'save'])->name('admin.save');
 Route::post('/admin/check',[AdminController::class, 'check'])->name('admin.check');
-Route::get('/admin/dashboard',[AdminController::class, 'dashboard']);
 Route::get('/admin/logout',[AdminController::class, 'logout'])->name('admin.logout');
 
+Route::group(['middleware'=>['AdminCheck']], function(){
+    Route::get('/admin',[AdminController::class, 'login'])->name('admin.login');
+    Route::get('/admin/registration',[AdminController::class, 'registration'])->name('admin.registration');
+    Route::get('/admin/dashboard',[AdminController::class, 'dashboard']);
+    Route::get('/admin/tests',[AdminController::class, 'tests']);
+});
+
+
+/* Tests */
 Route::get('/', function () {
     return view('test/login');
 });
 Route::get('test', function () {
     return view('test/home');
 });
-
-/* Route::get('admin', function () {
-    return view('admin/login');
-});
-Route::get('registration', function () {
-    return view('admin/registration');
-})
-Route::get('admin/dashboard', function () {
-    return view('admin/dashboard');
-}); 
-*/
 
 //Route::get('loginform', 'Controller@function');

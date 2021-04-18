@@ -53,15 +53,20 @@ class AdminController extends Controller
         }
         return back()->with('error','Incorrect password');
     }
+    
+    function logout(){
+        session()->pull('LoggedTeacher');
+        return redirect('/admin');
+    }
 
     function dashboard(){
         $data = ['LoggedTeacherInfo'=>Teacher::where('id','=', session('LoggedTeacher'))->first()];
         return view('admin.dashboard', $data);
     }
-    
-    function logout(){
-        session()->pull('LoggedTeacher');
-        return redirect('/admin');
+
+    function tests(){
+        $data = ['LoggedTeacherInfo'=>Admin::where('id','=', session('LoggedTeacher'))->first()];
+        return view('admin.profile', $data);
     }
 
 }
