@@ -25,23 +25,6 @@
                 </a>
             </li>
 
-{{--             <li>
-                <label class="nav__link" for="id-hry">
-                    <i class="nav__icon fas fa-puzzle-piece"></i>Tests
-                    <i class="nav__icon__drop fas fa-chevron-down"></i>
-                </label>
-                <input class="drop" type="checkbox" id="id-hry">
-                <div class="nav__dropdown {{ (request()->is('admin/*')) ? 'nav--active' : '' }}">
-                    <a class="nav__link link--second {{ (request()->is('admin/tests')) ? 'nav--active' : '' }}" href="{{ route('admin.tests') }}">
-                        <i class="nav__icon fas fa-puzzle-piece"></i>Create test
-                    </a>
-
-                    <a class="nav__link link--second {{ (request()->is('admin/tests')) ? 'nav--active' : '' }}" href="{{ route('admin.tests') }}">
-                        <i class="nav__icon fas fa-puzzle-piece"></i>Create Questions
-                    </a>
-                </div>
-            </li> --}}
-
             <li>
                 <span class="nav__link link--dropdown">
                     <i class="nav__icon fas fa-puzzle-piece"></i>Tests
