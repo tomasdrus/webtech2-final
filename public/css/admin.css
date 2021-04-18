@@ -94,10 +94,11 @@ a:hover {
     -ms-transition: .5s;
     -o-transition: .5s;
 }
-.nav__link:hover, .nav--active{
+.nav__link:hover, .link--active{
     margin-left: 5px;
     color: var(--white);
     cursor: pointer;
+    display: block;
 }
 .nav__icon {
     width: 30px;
@@ -111,7 +112,7 @@ a:hover {
 .nav__dropdown {
     display: none;
 }
-.drop:checked + .nav__dropdown {
+.dropdown--active {
     display: block;
 }
 .link--second {

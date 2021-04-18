@@ -27,7 +27,7 @@ Route::group(['middleware'=>['AdminCheck']], function(){
     Route::get('/admin',[AdminController::class, 'login'])->name('admin.login');
     Route::get('/admin/registration',[AdminController::class, 'registration'])->name('admin.registration');
     Route::get('/admin/dashboard',[AdminController::class, 'dashboard']);
-    Route::get('/admin/tests',[AdminController::class, 'tests']);
+    Route::get('/admin/tests',[AdminController::class, 'tests'])->name('admin.tests');;
 });
 
 
