@@ -64,9 +64,9 @@ class AdminController extends Controller
         return view('admin.dashboard', $data);
     }
 
-    function tests(){
-        $data = ['LoggedTeacherInfo'=>Admin::where('id','=', session('LoggedTeacher'))->first()];
+/*     function tests(){
+        $data = ['LoggedTeacherInfo'=>Teacher::where('id','=', session('LoggedTeacher'))->first()];
         return view('admin.profile', $data);
-    }
+    } */
 
 }
