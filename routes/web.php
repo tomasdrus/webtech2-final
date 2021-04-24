@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminQuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,15 +20,22 @@ use App\Http\Controllers\AdminController;
 
 /* Admin */
 
-Route::post('/admin/save',[AdminController::class, 'save'])->name('admin.save');
-Route::post('/admin/check',[AdminController::class, 'check'])->name('admin.check');
-Route::get('/admin/logout',[AdminController::class, 'logout'])->name('admin.logout');
-Route::get('/admin/registration',[AdminController::class, 'registration'])->name('admin.registration');
-Route::get('/admin',[AdminController::class, 'login'])->name('admin.login');
+Route::post('admin/save',[AdminController::class, 'save'])->name('admin.save');
+Route::post('admin/check',[AdminController::class, 'check'])->name('admin.check');
+Route::get('admin/logout',[AdminController::class, 'logout'])->name('admin.logout');
+Route::get('admin/registration',[AdminController::class, 'registration'])->name('admin.registration');
+Route::get('admin',[AdminController::class, 'login'])->name('admin.login');
 
 Route::group(['middleware'=>['AdminCheck']], function(){
-    Route::get('/admin/dashboard',[AdminController::class, 'dashboard']);
-    Route::get('/admin/tests',[AdminController::class, 'tests'])->name('admin.tests');;
+    /* Dashboard */
+    Route::get('admin/dashboard',[AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('admin/tests',[AdminController::class, 'tests'])->name('admin.tests');
+
+    /* Exam */ 
+
+    /* Question */
+    Route::get('admin/question',[AdminQuestionController::class, 'index'])->name('admin.question');
+    Route::get('admin/question/create',[AdminQuestionController::class, 'create'])->name('admin.question.create');
 });
 
 /* Exams */

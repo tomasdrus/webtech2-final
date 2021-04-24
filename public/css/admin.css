@@ -10,8 +10,8 @@
 }
 
 body{
-    font-family: 'Nunito', sans-serif;
-    background-color: var(--gray-background);
+/*     font-family: 'Nunito', sans-serif;
+    background-color: var(--gray-background); */
     display: flex;
     position: relative;
     color: var(--gray-text);

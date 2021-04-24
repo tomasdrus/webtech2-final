@@ -4,39 +4,54 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <link href="{{ asset('fontawesome/css/all.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/reset.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
     
     <title>@yield('title')</title>
 </head>
-<body>
+<body class="bg-gray-200">
 
     <nav class="navbar navbar--open" id="navbar">
-        <h3 class="nav__name">@yield('name')</h3>
+        <h3 class="nav__name">{{ $LoggedTeacherInfo['forename'] . ' ' . $LoggedTeacherInfo['surname'] }}</h3>
     
         <ul class="nav__links">
 
             <li>
-                <a class="nav__link {{ (request()->is('admin/dashboard')) ? 'link--active' : '' }}" href="index.html">
+                <a class="nav__link {{ (request()->is('admin/dashboard')) ? 'link--active' : '' }}" href="{{ route('admin.dashboard') }}">
                     <i class="nav__icon fas fa-home"></i>Dashboard
                 </a>
             </li>
 
             <li>
                 <span class="nav__link link--dropdown">
-                    <i class="nav__icon fas fa-puzzle-piece"></i>Tests
+                    <i class="nav__icon fas fa-puzzle-piece"></i>Exams
                     <i class="nav__icon__drop fas fa-chevron-down"></i>
                 </span>
                 <div class="nav__dropdown">
-                    <a class="nav__link link--second {{ (request()->is('admin/dashboard')) ? 'link--active' : '' }}" href="{{ route('admin.tests') }}">
-                        <i class="nav__icon fas fa-puzzle-piece"></i>Create test
+                    <a class="nav__link link--second {{ (request()->is('admin/exam')) ? 'link--active' : '' }}" href="{{ route('admin.tests') }}">
+                        <i class="nav__icon fas fa-puzzle-piece"></i>All exams
                     </a>
 
-                    <a class="nav__link link--second {{ (request()->is('admin/tests')) ? 'link--active' : '' }}" href="{{ route('admin.tests') }}">
-                        <i class="nav__icon fas fa-puzzle-piece"></i>Create Questions
+                    <a class="nav__link link--second {{ (request()->is('admin/exam/create')) ? 'link--active' : '' }}" href="{{ route('admin.tests') }}">
+                        <i class="nav__icon fas fa-puzzle-piece"></i>Create exam
+                    </a>
+                </div>
+            </li>
+
+            <li>
+                <span class="nav__link link--dropdown">
+                    <i class="nav__icon fas fa-puzzle-piece"></i>Questions
+                    <i class="nav__icon__drop fas fa-chevron-down"></i>
+                </span>
+                <div class="nav__dropdown">
+                    <a class="nav__link link--second {{ (request()->is('admin/question')) ? 'link--active' : '' }}" href="{{ route('admin.question') }}">
+                        <i class="nav__icon fas fa-puzzle-piece"></i>All questions
+                    </a>
+
+                    <a class="nav__link link--second {{ (request()->is('admin/question/create')) ? 'link--active' : '' }}" href="{{ route('admin.question.create') }}">
+                        <i class="nav__icon fas fa-puzzle-piece"></i>Create Question
                     </a>
                 </div>
             </li>

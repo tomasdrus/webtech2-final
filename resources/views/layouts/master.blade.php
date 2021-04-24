@@ -9,7 +9,6 @@
 </head>
 <body class="bg-gray-200">
     @yield('content')
-    <script type="text/javascript" src="{{ asset('js/drawing.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

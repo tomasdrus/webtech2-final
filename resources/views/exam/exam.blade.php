@@ -107,4 +107,6 @@
     </form>
 </div>
 
+<script type="text/javascript" src="{{ asset('js/drawing.js') }}"></script>
+
 @endsection
