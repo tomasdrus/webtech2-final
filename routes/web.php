@@ -34,8 +34,10 @@ Route::group(['middleware'=>['AdminCheck']], function(){
     /* Exam */ 
 
     /* Question */
+    
     Route::get('admin/question',[AdminQuestionController::class, 'index'])->name('admin.question');
     Route::get('admin/question/create',[AdminQuestionController::class, 'create'])->name('admin.question.create');
+    Route::post('admin/question/save',[AdminQuestionController::class, 'save'])->name('admin.question.save');
 });
 
 /* Exams */

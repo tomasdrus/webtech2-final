@@ -5,8 +5,16 @@
 <div class="bg-white p-5 m-5 rounded-lg">
     <h4 class="font-semibold mb-3">Create new question</h4>
 
-    <form action="" >
+    <form action="{{route('admin.question.save')}}" method="POST" >
 
+        @if (Session::get('success'))
+            <p>{{ Session::get('success') }}</p>
+        @endif
+
+        @if (Session::get('error'))
+            <p>{{ Session::get('error') }}</p>
+        @endif
+    
         {{-- question type -> classic, select, pairing, drawing, math --}}
         <label class="admin__label">Question type
             <span class="text-red-500 ml-1">@error('type') {{$message}} @enderror</span>
@@ -83,6 +91,7 @@
         {{-- submit button --}}
         <button type="submit" class="admin__button__submit">Create question</button>
 
+        @csrf
     </form>
 
 </div>
