@@ -36,9 +36,9 @@
 
         {{-- type classical --}}
         <section id="classical" class="type__sections">
-            <label for="answer" class="admin__label">Correct answer
-                <span class="text-red-500 ml-1">@error('answer') {{$message}} @enderror</span>
-                <input type="text" name="answer" id="answer" value="{{ old('answer') }}" class="admin__input">
+            <label class="admin__label">Correct answer
+                <span class="text-red-500 ml-1">@error('testAnswer') {{$message}} @enderror</span>
+                <input type="text" name="testAnswer" value="{{ old('testAnswer') }}" class="admin__input">
             </label>
         </section>
 
@@ -46,18 +46,18 @@
         <section id="selecting" class="type__sections hidden">
             <div class="flex mb-5">
                 <label class="admin__label flex-1">Answer option 1
-                    <span class="text-red-500 ml-1">@error('option1') {{$message}} @enderror</span>
-                    <input type="text" name="option1" value="{{ old('option1') }}" class="admin__input mb-0">
+                    <span class="text-red-500 ml-1">@error('option[]') {{$message}} @enderror</span>
+                    <input type="text" name="option[]" value="{{ old('option[]') }}" class="admin__input mb-0">
                 </label>
-                <input type="checkbox" name="option1check" class="block cursor-pointer w-5 ml-2 mt-7 border border-gray-500">
+                <input type="checkbox" name="rightness1" class="block cursor-pointer w-5 ml-2 mt-7 border border-gray-500">
             </div>
 
             <div class="flex mb-5">
                 <label class="admin__label flex-1">Answer option 2
-                    <span class="text-red-500 ml-1">@error('option2') {{$message}} @enderror</span>
-                    <input type="text" name="option2" value="{{ old('option2') }}" class="admin__input mb-0">
+                    <span class="text-red-500 ml-1">@error('option[]') {{$message}} @enderror</span>
+                    <input type="text" name="option[]" value="{{ old('option[]') }}" class="admin__input mb-0">
                 </label>
-                <input type="checkbox" name="option2check" class="block cursor-pointer w-5 ml-2 mt-7 border border-gray-500">
+                <input type="checkbox" name="rightness2" class="block cursor-pointer w-5 ml-2 mt-7 border border-gray-500">
             </div>
         </section>
 
