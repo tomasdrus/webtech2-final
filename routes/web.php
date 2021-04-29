@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminQuestionController;
+use App\Http\Controllers\AdminExamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,9 +33,11 @@ Route::group(['middleware'=>['AdminCheck']], function(){
     Route::get('admin/tests',[AdminController::class, 'tests'])->name('admin.tests');
 
     /* Exam */ 
+    Route::get('admin/exam',[AdminExamController::class, 'index'])->name('admin.exam');
+    Route::get('admin/exam/create',[AdminExamController::class, 'create'])->name('admin.exam.create');
+    Route::post('admin/exam/save',[AdminExamController::class, 'save'])->name('admin.exam.save');
 
     /* Question */
-    
     Route::get('admin/question',[AdminQuestionController::class, 'index'])->name('admin.question');
     Route::get('admin/question/create',[AdminQuestionController::class, 'create'])->name('admin.question.create');
     Route::post('admin/question/save',[AdminQuestionController::class, 'save'])->name('admin.question.save');

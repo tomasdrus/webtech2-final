@@ -10,9 +10,16 @@
         @apply border border-gray-500 rounded-md px-2 py-2 text-sm w-full focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer mb-5 mt-2;
     }
     .admin__label {
-        @apply font-semibold text-sm text-gray-700 block cursor-pointer;
+        @apply font-semibold text-sm text-gray-700 block cursor-pointer w-full;
     }
     .admin__button__submit {
         @apply block mx-auto bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 focus:outline-none text-white px-10 py-2 rounded-md text-sm;
+    }
+
+    .auth__input {
+        @apply border border-gray-600 rounded-md px-3 py-2 mb-5 text-sm w-full focus:outline-none focus:ring-1 focus:ring-blue-600;
+    }
+    .auth__button {
+        @apply bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 focus:outline-none text-white w-full py-2.5 rounded-md text-sm font-semibold;
     }
 }

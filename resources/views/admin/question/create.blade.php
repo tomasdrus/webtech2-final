@@ -27,7 +27,7 @@
                 <option value="mathematical">mathematical</option>
               </select> 
         </label>
-
+                
         {{-- question text --}}
         <label class="admin__label">Question text
             <span class="text-red-500 ml-1">@error('name') {{$message}} @enderror</span>

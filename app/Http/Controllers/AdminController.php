@@ -9,10 +9,10 @@ use App\Models\Teacher;
 class AdminController extends Controller
 {
     function login() {
-        return view('admin/login');
+        return view('admin/auth/login');
     }
     function registration() {
-        return view('admin/registration');
+        return view('admin/auth/registration');
     }
     function save (Request $request) {
         $request->validate([
@@ -63,10 +63,4 @@ class AdminController extends Controller
         $data = ['LoggedTeacherInfo'=>Teacher::where('id','=', session('LoggedTeacher'))->first()];
         return view('admin.dashboard', $data);
     }
-
-/*     function tests(){
-        $data = ['LoggedTeacherInfo'=>Teacher::where('id','=', session('LoggedTeacher'))->first()];
-        return view('admin.profile', $data);
-    } */
-
 }

@@ -30,11 +30,11 @@
                     <i class="nav__icon__drop fas fa-chevron-down"></i>
                 </span>
                 <div class="nav__dropdown">
-                    <a class="nav__link link--second {{ (request()->is('admin/exam')) ? 'link--active' : '' }}" href="{{ route('admin.tests') }}">
+                    <a class="nav__link link--second {{ (request()->is('admin/exam')) ? 'link--active' : '' }}" href="{{ route('admin.exam') }}">
                         <i class="nav__icon fas fa-puzzle-piece"></i>All exams
                     </a>
 
-                    <a class="nav__link link--second {{ (request()->is('admin/exam/create')) ? 'link--active' : '' }}" href="{{ route('admin.tests') }}">
+                    <a class="nav__link link--second {{ (request()->is('admin/exam/create')) ? 'link--active' : '' }}" href="{{ route('admin.exam.create') }}">
                         <i class="nav__icon fas fa-puzzle-piece"></i>Create exam
                     </a>
                 </div>

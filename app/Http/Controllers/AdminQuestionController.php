@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\QuestionWithAnswers;
 use Illuminate\Http\Request;
 use App\Models\Teacher;
 use App\Models\QuestionWithPairs;
+use App\Models\QuestionWithAnswers;
 
 class AdminQuestionController extends Controller
 {
