@@ -35,7 +35,7 @@
         </label>
 
         {{-- type classical --}}
-        <section id="classical" class="type__sections hidden">
+        <section id="classical" class="type__sections">
             <label class="admin__label">Correct answer
                 <span class="text-red-500 ml-1">@error('testAnswer') {{$message}} @enderror</span>
                 <input type="text" name="testAnswer" value="{{ old('testAnswer') }}" class="admin__input">
@@ -43,56 +43,40 @@
         </section>
 
         {{-- type selecting --}}
-{{--         <section id="selecting" class="type__sections">
-            <div class="flex items-end mb-5">
-                <label class="admin__label flex-1">Answer option 1
+        <section id="selecting" class="type__sections hidden">
+            <div class="flex gap-3 items-end mb-5">
+                <label class="admin__label">
+                    <span class="part__first">Answer option 1</span>
                     <span class="text-red-500 ml-1">@error('option[]') {{$message}} @enderror</span>
                     <input type="text" name="option[]" value="{{ old('option[]') }}" class="admin__input mb-0">
                 </label>
-                <input type="checkbox" name="rightness1" class="block cursor-pointer w-5 h-5 mb-2 ml-2 border border-gray-500">
-                <button class="pr-0 py-1.5 pl-3 text-lg leading-6 text-red-500 hover:text-red-600  cursor-pointer"><i class="far fa-trash-alt"></i></button>
+                <input type="checkbox" name="rightness1" class="block cursor-pointer w-5 h-5 my-1.5 border border-gray-500">
+                <button type="button" class="py-1 text-xl text-red-500 hover:text-red-600 cursor-pointer focus:outline-none"><i class="far fa-trash-alt"></i></button>
             </div>
-        </section> --}}
 
-        <section id="selecting" class="type__sections">
-            <label class="admin__label mb-5 selecting__option">
-                <span>Answer option 1</span>
-                <span class="text-red-500 ml-1">@error('option[]') {{$message}} @enderror</span>
-                <div class="flex items-center gap-3 mt-2">
-                    <input type="text" name="option[]" value="{{ old('option[]') }}" class="admin__input my-0">
-                    <input type="checkbox" name="rightness1" class="block cursor-pointer w-5 h-5 border border-gray-500">
-                    <button type="button" class="option__delete text-xl text-red-500 hover:text-red-600 cursor-pointer outline-none"><i class="far fa-trash-alt"></i></button>
-                </div>
-            </label>
-
-            <button type="button" id="optionAdd" class="w-full rounded-md py-1.5 transition duration-100 text-sm text-green-600 border border-green-600 hover:bg-green-600 hover:text-white mb-5">Add new option field</button>
+            <button type="button" id="selectingAdd" class="w-full rounded-md py-1.5 transition duration-100 text-sm text-green-600 border border-green-600 hover:bg-green-600 hover:text-white mb-5">Add new option field</button>
         </section>
 
         {{-- type pairing --}}
         <section id="pairing" class="type__sections hidden">
-            <div class="lg:grid grid-cols-2 gap-5">
-                <label for="answer" class="admin__label">Option 1
-                    <span class="text-red-500 ml-1">@error('answer') {{$message}} @enderror</span>
-                    <input type="text" name="answer" id="answer" value="{{ old('answer') }}" class="admin__input">
-                </label>
-                
-                <label for="answer" class="admin__label">Option 1 answer
-                    <span class="text-red-500 ml-1">@error('answer') {{$message}} @enderror</span>
-                    <input type="text" name="answer" id="answer" value="{{ old('answer') }}" class="admin__input">
-                </label>
+            <div class="flex gap-3 items-center lg:items-end mb-5">
+                <div class="flex flex-col lg:flex-row gap-3 w-full">
+                    <label class="admin__label">
+                        <span class="part__first">Option 1</span>
+                        <span class="text-red-500 ml-1">@error('pairing[]') {{$message}} @enderror</span>
+                        <input type="text" name="pairing[]" value="{{ old('pairing[]') }}" class="admin__input mb-0">
+                    </label>
+                    
+                    <label class="admin__label">
+                        <span class="part__second">Option 1 answer</span>
+                        <span class="text-red-500 ml-1">@error('pairing[]') {{$message}} @enderror</span>
+                        <input type="text" name="pairing[]" value="{{ old('pairing[]') }}" class="admin__input mb-0">
+                    </label>
+                </div>
+                <button type="button" class="pt-6 lg:py-1 text-xl text-red-500 hover:text-red-600 cursor-pointer focus:outline-none"><i class="far fa-trash-alt"></i></button>
             </div>
 
-            <div class="lg:grid grid-cols-2 gap-5">
-                <label for="answer" class="admin__label">Option 2
-                    <span class="text-red-500 ml-1">@error('answer') {{$message}} @enderror</span>
-                    <input type="text" name="answer" id="answer" value="{{ old('answer') }}" class="admin__input">
-                </label>
-                
-                <label for="answer" class="admin__label">Option 2 answer
-                    <span class="text-red-500 ml-1">@error('answer') {{$message}} @enderror</span>
-                    <input type="text" name="answer" id="answer" value="{{ old('answer') }}" class="admin__input">
-                </label>
-            </div>
+            <button type="button" id="pairingAdd" class="w-full rounded-md py-1.5 transition duration-100 text-sm text-green-600 border border-green-600 hover:bg-green-600 hover:text-white mb-5">Add new option field</button>
         </section>
 
         {{-- submit button --}}
@@ -118,44 +102,53 @@
         });
     })
 
-    /* Option add new field */
-    const optionAddButton = document.getElementById('optionAdd');
-    const selectingContainer = document.getElementById('selecting');
+    /* Adding and removing elements */
+    const dynamicElementsAdding = (containerId, buttonAddId, functionIndexing) => {
+        const container = document.getElementById(containerId);
+        const buttonAdd = document.getElementById(buttonAddId);
+        const buttonDelFirst = document.querySelector(`#${containerId} > :not(button) button`)
 
-    optionAddButton.addEventListener('click', () => {
-        let elementCopy = optionAddButton.previousElementSibling.cloneNode(true);
-        selectingContainer.insertBefore(elementCopy, optionAddButton);
+        const functionDel = (e) => {
+            if(document.querySelectorAll(`#${containerId} > :not(button)`).length <= 1){
+                return;
+            }
+            e.target.parentElement.remove();
+            functionIndexing(containerId);
+        }
 
-        changeIndexing();
-        updateOptionDeleteListeners();
-    })
+        buttonDelFirst.addEventListener('click', functionDel);
 
-    /* Option numbering */
-    const changeIndexing = () => {
-        const options = document.querySelectorAll('.selecting__option');
-        options.forEach((option, index) => {
-            option.querySelector('span').innerHTML = `Answer option ${index + 1}`;
-            option.querySelector('input[type="checkbox"]').setAttribute('name', `rightness${index + 1}`)
+        buttonAdd.addEventListener('click', () => {
+            const elementCopy = buttonAdd.previousElementSibling.cloneNode(true);
+            const buttonDel = elementCopy.querySelector('button');
+
+            buttonDel.addEventListener('click', functionDel);
+            container.insertBefore(elementCopy, buttonAdd);
+            functionIndexing(containerId);
         })
     }
 
-    /* Option delete field */
-    const updateOptionDeleteListeners = () => {
-        const optionDeleteButtons = document.querySelectorAll('.option__delete');
-        const minOptions = 1;
-
-        optionDeleteButtons.forEach((button) => {
-            button.addEventListener('click', () => {
-                if(document.querySelectorAll('.option__delete').length <= minOptions){
-                    return;
-                }
-                button.parentElement.parentElement.remove();
-                changeIndexing();
-            })
-        });
+    const indexingPairing = (containerId) => {
+        const container = document.querySelectorAll(`#${containerId} > :not(button)`);
+        console.log(container);
+        container.forEach((item, index) => {
+            item.querySelector('.part__first').innerHTML = `Option ${index + 1}`;
+            item.querySelector('.part__second').innerHTML = `Option ${index + 1} answer`;
+        })
     }
 
-    updateOptionDeleteListeners();
+    const indexingSelecting = (containerId) => {
+        const container = document.querySelectorAll(`#${containerId} > :not(button)`);
+        console.log(container);
+        container.forEach((item, index) => {
+            item.querySelector('span').innerHTML = `Answer option ${index + 1}`;
+            item.querySelector('input[type="checkbox"]').setAttribute('name', `rightness${index + 1}`)
+        })
+    }
+
+    dynamicElementsAdding('pairing', 'pairingAdd', indexingPairing);
+    dynamicElementsAdding('selecting', 'selectingAdd', indexingSelecting);
+
     
 </script>
 
