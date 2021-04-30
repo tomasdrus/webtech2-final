@@ -37,8 +37,8 @@
         {{-- type classical --}}
         <section id="classical" class="type__sections">
             <label class="admin__label">Correct answer
-                <span class="text-red-500 ml-1">@error('testAnswer') {{$message}} @enderror</span>
-                <input type="text" name="testAnswer" value="{{ old('testAnswer') }}" class="admin__input">
+                <span class="text-red-500 ml-1">@error('answer') {{$message}} @enderror</span>
+                <input type="text" name="answer" value="{{ old('answer') }}" class="admin__input">
             </label>
         </section>
 
@@ -47,8 +47,8 @@
             <div class="flex gap-3 items-end mb-5">
                 <label class="admin__label">
                     <span class="part__first">Answer option 1</span>
-                    <span class="text-red-500 ml-1">@error('option[]') {{$message}} @enderror</span>
-                    <input type="text" name="option[]" value="{{ old('option[]') }}" class="admin__input mb-0">
+                    <span class="text-red-500 ml-1">@error('options[]') {{$message}} @enderror</span>
+                    <input type="text" name="options[]" value="{{ old('options[]') }}" class="admin__input mb-0">
                 </label>
                 <input type="checkbox" name="rightness1" class="block cursor-pointer w-5 h-5 my-1.5 border border-gray-500">
                 <button type="button" class="py-1 text-xl text-red-500 hover:text-red-600 cursor-pointer focus:outline-none"><i class="far fa-trash-alt"></i></button>
@@ -64,13 +64,13 @@
                     <label class="admin__label">
                         <span class="part__first">Option 1</span>
                         <span class="text-red-500 ml-1">@error('pairing[]') {{$message}} @enderror</span>
-                        <input type="text" name="pairing[]" value="{{ old('pairing[]') }}" class="admin__input mb-0">
+                        <input type="text" name="pairs[]" value="{{ old('pairing[]') }}" class="admin__input mb-0">
                     </label>
                     
                     <label class="admin__label">
                         <span class="part__second">Option 1 answer</span>
                         <span class="text-red-500 ml-1">@error('pairing[]') {{$message}} @enderror</span>
-                        <input type="text" name="pairing[]" value="{{ old('pairing[]') }}" class="admin__input mb-0">
+                        <input type="text" name="pairs[]" value="{{ old('pairing[]') }}" class="admin__input mb-0">
                     </label>
                 </div>
                 <button type="button" class="pt-6 lg:py-1 text-xl text-red-500 hover:text-red-600 cursor-pointer focus:outline-none"><i class="far fa-trash-alt"></i></button>
@@ -102,7 +102,7 @@
         });
     })
 
-    /* Adding and removing elements */
+    /* Adding and removing */
     const dynamicElementsAdding = (containerId, buttonAddId, functionIndexing) => {
         const container = document.getElementById(containerId);
         const buttonAdd = document.getElementById(buttonAddId);
@@ -121,8 +121,9 @@
         buttonAdd.addEventListener('click', () => {
             const elementCopy = buttonAdd.previousElementSibling.cloneNode(true);
             const buttonDel = elementCopy.querySelector('button');
-
+            const input = elementCopy.querySelector('input');
             buttonDel.addEventListener('click', functionDel);
+            input.value = null;
             container.insertBefore(elementCopy, buttonAdd);
             functionIndexing(containerId);
         })
@@ -130,7 +131,6 @@
 
     const indexingPairing = (containerId) => {
         const container = document.querySelectorAll(`#${containerId} > :not(button)`);
-        console.log(container);
         container.forEach((item, index) => {
             item.querySelector('.part__first').innerHTML = `Option ${index + 1}`;
             item.querySelector('.part__second').innerHTML = `Option ${index + 1} answer`;
@@ -139,7 +139,6 @@
 
     const indexingSelecting = (containerId) => {
         const container = document.querySelectorAll(`#${containerId} > :not(button)`);
-        console.log(container);
         container.forEach((item, index) => {
             item.querySelector('span').innerHTML = `Answer option ${index + 1}`;
             item.querySelector('input[type="checkbox"]').setAttribute('name', `rightness${index + 1}`)

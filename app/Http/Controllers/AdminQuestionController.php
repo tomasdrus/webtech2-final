@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Teacher;
-use App\Models\QuestionWithPairs;
-use App\Models\QuestionWithAnswers;
-use App\Models\OptionWithAnswers;
+use App\Models\Question;
+use App\Models\Option;
 
 class AdminQuestionController extends Controller
 {
@@ -22,7 +21,7 @@ class AdminQuestionController extends Controller
     }
 
     function save(Request $request){   
-        $question = new QuestionWithAnswers();
+        $question = new Question();
 
         $request->validate([
             'name'=>'required',
@@ -33,20 +32,22 @@ class AdminQuestionController extends Controller
 
         if($question->save()){
             if($request->type == 'classical'){
-                $option = new OptionWithAnswers();
-                $option->question_with_answers_id = $question->id;
-                $option->answer = $request->testAnswer;
+                $option = new Option();
+                $option->question_id = $question->id;
+                $option->answer = $request->answer;
+                $option->rightness = true;
 
                 if($option->save()){
                     return back()->with('success', 'New question');
                 }
             }
+
             if($request->type == 'selecting'){
-                $options = $request->option;
+                $options = $request->options;
 
                 for($i = 0 ; $i < count($options) ; $i++){
-                    $option = new OptionWithAnswers();
-                    $option->question_with_answers_id = $question->id;
+                    $option = new Option();
+                    $option->question_id = $question->id;
 
                     $option->answer = $options[$i];
                     $option->rightness = $request->has('rightness' . ($i + 1)) ? true : false;

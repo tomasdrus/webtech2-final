@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOptionWithAnswersTable extends Migration
+class CreateOptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateOptionWithAnswersTable extends Migration
      */
     public function up()
     {
-        Schema::create('option_with_answers', function (Blueprint $table) {
+        Schema::create('options', function (Blueprint $table) {
             $table->id();
             $table->string('answer');
             $table->boolean('rightness');
-            $table->unsignedBigInteger('question_with_answers_id');
-            $table->foreign('question_with_answers_id')->references('id')->on('question_with_answers');
+            $table->unsignedBigInteger('question_id');
+            $table->foreign('question_id')->references('id')->on('questions');
         });
     }
 
@@ -29,6 +29,6 @@ class CreateOptionWithAnswersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('option_with_answers');
+        Schema::dropIfExists('options');
     }
 }

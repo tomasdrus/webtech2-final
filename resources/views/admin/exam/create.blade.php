@@ -34,18 +34,23 @@
         </label>
 
         {{-- exam questions select --}}
-        <div class="flex mb-5">
-            <label class="admin__label">Select question
-                <span class="text-red-500 ml-1">@error('type') {{$message}} @enderror</span>
-    
-                <select name="type" id="type" class="admin__select mb-0">
-                    <option value="1">id 1 |typ otazky cislo jedna </option>
-                    <option value="2">id 2 |typ otazky cislo dva </option>
-                    <option value="3">id 3 |typ otazky cislo tri </option>
-                </select> 
-            </label>
-            <a class="pr-0 py-1.5 pl-3 text-lg leading-6 text-red-500 hover:text-red-600 self-end cursor-pointer"><i class="far fa-trash-alt"></i></a>
-        </div>
+        <section id="question">
+            <div class="flex gap-3 items-end mb-5">
+                <label class="admin__label">
+                    <span class="part__first">Select question 1</span>
+                    <span class="text-red-500 ml-1">@error('question[]') {{$message}} @enderror</span>
+                    <select name="question[]" class="admin__select mb-0">
+                        <option value="1">id 1 |typ otazky cislo jedna </option>
+                        <option value="2">id 2 |typ otazky cislo dva </option>
+                        <option value="3">id 3 |typ otazky cislo tri </option>
+                    </select> 
+                </label>
+                <button type="button" class="py-1 text-xl text-red-500 hover:text-red-600 cursor-pointer focus:outline-none"><i class="far fa-trash-alt"></i></button>
+            </div>
+
+            <button type="button" id="questionAdd" class="w-full rounded-md py-1.5 transition duration-100 text-sm text-green-600 border border-green-600 hover:bg-green-600 hover:text-white mb-5">Add new question</button>
+        </section>
+
 
         {{-- submit button --}}
         <button type="submit" class="admin__button__submit">Create exam</button>
@@ -54,6 +59,43 @@
     </form>
 
 </div>
+
+<script>
+    /* Adding and removing */
+    const dynamicElementsAdding = (containerId, buttonAddId, functionIndexing) => {
+        const container = document.getElementById(containerId);
+        const buttonAdd = document.getElementById(buttonAddId);
+        const buttonDelFirst = document.querySelector(`#${containerId} > :not(button) button`)
+
+        const functionDel = (e) => {
+            if(document.querySelectorAll(`#${containerId} > :not(button)`).length <= 1){
+                return;
+            }
+            e.target.parentElement.remove();
+            functionIndexing(containerId);
+        }
+
+        buttonDelFirst.addEventListener('click', functionDel);
+
+        buttonAdd.addEventListener('click', () => {
+            const elementCopy = buttonAdd.previousElementSibling.cloneNode(true);
+            const buttonDel = elementCopy.querySelector('button');
+
+            buttonDel.addEventListener('click', functionDel);
+            container.insertBefore(elementCopy, buttonAdd);
+            functionIndexing(containerId);
+        })
+    }
+
+    const indexingQuestion = (containerId) => {
+        const container = document.querySelectorAll(`#${containerId} > :not(button)`);
+        container.forEach((item, index) => {
+            item.querySelector('span').innerHTML = `Select question ${index + 1}`;
+        })
+    }
+
+    dynamicElementsAdding('question', 'questionAdd', indexingQuestion);
+</script>
 
 
 @endsection
