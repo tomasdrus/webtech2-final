@@ -63,14 +63,14 @@
                 <div class="flex flex-col lg:flex-row gap-3 w-full">
                     <label class="admin__label">
                         <span class="part__first">Option 1</span>
-                        <span class="text-red-500 ml-1">@error('pairing[]') {{$message}} @enderror</span>
-                        <input type="text" name="pairs[]" value="{{ old('pairing[]') }}" class="admin__input mb-0">
+                        <span class="text-red-500 ml-1">@error('pairOptions[]') {{$message}} @enderror</span>
+                        <input type="text" name="pairOptions[]" value="{{ old('pairOptions[]') }}" class="admin__input mb-0">
                     </label>
                     
                     <label class="admin__label">
                         <span class="part__second">Option 1 answer</span>
-                        <span class="text-red-500 ml-1">@error('pairing[]') {{$message}} @enderror</span>
-                        <input type="text" name="pairs[]" value="{{ old('pairing[]') }}" class="admin__input mb-0">
+                        <span class="text-red-500 ml-1">@error('pairAnswers[]') {{$message}} @enderror</span>
+                        <input type="text" name="pairAnswers[]" value="{{ old('pairAnswers[]') }}" class="admin__input mb-0">
                     </label>
                 </div>
                 <button type="button" class="pt-6 lg:py-1 text-xl text-red-500 hover:text-red-600 cursor-pointer focus:outline-none"><i class="far fa-trash-alt"></i></button>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Teacher;
 use App\Models\Question;
 use App\Models\Option;
+use App\Models\Pair;
 
 class AdminQuestionController extends Controller
 {
@@ -53,6 +54,23 @@ class AdminQuestionController extends Controller
                     $option->rightness = $request->has('rightness' . ($i + 1)) ? true : false;
 
                     if(!$option->save()){
+                        return back()->with('error', 'Question not created');
+                    }
+                }
+                return back()->with('success', 'New question');
+            }
+
+            if($request->type == 'pairing'){
+                $options = $request->pairOptions;
+                $answers = $request->pairAnswers;
+
+                for($i = 0 ; $i < count($options) ; $i++){
+                    $pair = new Pair();
+                    $pair->question_id = $question->id;
+                    $pair->option = $options[$i];
+                    $pair->answer = $answers[$i];
+
+                    if(!$pair->save()){
                         return back()->with('error', 'Question not created');
                     }
                 }
