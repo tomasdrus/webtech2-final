@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Teacher;
 use App\Models\Question;
 use App\Models\Option;
@@ -12,8 +13,10 @@ class AdminQuestionController extends Controller
 {
 
     function index () {
-        $data = ['LoggedTeacherInfo'=>Teacher::where('id','=', session('LoggedTeacher'))->first()];
-        return view('admin.question.index', $data);
+        $questions = ['questions'=>DB::table('questions')->get()->all()];
+        $teacher = ['LoggedTeacherInfo'=>Teacher::where('id','=', session('LoggedTeacher'))->first()];
+
+        return view('admin.question.index')->with($teacher)->with($questions);
     }
 
     function create () {

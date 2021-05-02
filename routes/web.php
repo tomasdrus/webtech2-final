@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminQuestionController;
 use App\Http\Controllers\AdminExamController;
+use App\Http\Controllers\ExamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +16,8 @@ use App\Http\Controllers\AdminExamController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-/* Route::get('home', function () {
-    return view('home');
-}); */
 
 /* Admin */
-
 Route::post('admin/save',[AdminController::class, 'save'])->name('admin.save');
 Route::post('admin/check',[AdminController::class, 'check'])->name('admin.check');
 Route::get('admin/logout',[AdminController::class, 'logout'])->name('admin.logout');
@@ -29,8 +26,7 @@ Route::get('admin',[AdminController::class, 'login'])->name('admin.login');
 
 Route::group(['middleware'=>['AdminCheck']], function(){
     /* Dashboard */
-    Route::get('admin/dashboard',[AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::get('admin/tests',[AdminController::class, 'tests'])->name('admin.tests');
+    Route::get('admin/dashboard',[AdminExamController::class, 'dashboard'])->name('admin.dashboard');
 
     /* Exam */ 
     Route::get('admin/exam',[AdminExamController::class, 'index'])->name('admin.exam');
@@ -43,12 +39,22 @@ Route::group(['middleware'=>['AdminCheck']], function(){
     Route::post('admin/question/save',[AdminQuestionController::class, 'save'])->name('admin.question.save');
 });
 
-/* Exams */
-Route::get('/', function () {
-    return view('exam/login');
-});
-Route::get('exam', function () {
-    return view('exam/exam');
+
+/* Exam */
+
+Route::get('/',[ExamController::class, 'login'])->name('exam.login');
+Route::post('exam/check',[ExamController::class, 'check'])->name('exam.check');
+
+Route::group(['middleware'=>['AdminCheck']], function(){
+    /* Exam */ 
+    Route::get('exam',[ExamController::class, 'index'])->name('exam.exam');
 });
 
-//Route::get('loginform', 'Controller@function');
+
+/* Route::get('/', function () {
+    return view('exam/login');
+}); */
+/* 
+Route::get('exam', function () {
+    return view('exam/exam');
+}); */

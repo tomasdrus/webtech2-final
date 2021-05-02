@@ -71,5 +71,6 @@
     </section>
 
     <script type="text/javascript" src="{{ asset('js/admin.js') }}"></script>
+    @yield('script')
 </body>
 </html>

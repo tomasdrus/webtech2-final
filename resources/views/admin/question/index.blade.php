@@ -15,10 +15,11 @@
             </th></tr>
         </thead>
         <tbody class="text-gray-600">
+            @forelse($questions as $question)
             <tr>
-                <td class="py-3 px-4 border border-gray-200">1</td>
-                <td class="py-3 px-4 border border-gray-200 max-w-xs overflow-hidden whitespace-nowrap">Párovanie správnych odpovedí (body za ich správnosť automaticky priraďuje aplikácia)</td>
-                <td class="py-3 px-4 border border-gray-200">pairing</td>
+                <td class="py-3 px-4 border border-gray-200">{{ $question->id }}</td>
+                <td class="py-3 px-4 border border-gray-200 max-w-xs overflow-hidden whitespace-nowrap">{{ $question->name }}</td>
+                <td class="py-3 px-4 border border-gray-200">{{ $question->type }}</td>
                 <td class="border border-gray-200">
                     <div class="flex content-center justify-center">
                         <a href="#" class="px-1 mr-1 text-yellow-500 hover:text-yellow-600"><i class="far fa-edit"></i></a>
@@ -26,6 +27,11 @@
                     </div>
                 </td>
             </tr>
+            @empty
+                <tr>
+                    <td>žiadne otazky</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 

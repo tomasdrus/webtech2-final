@@ -11,11 +11,11 @@
                 <th class="py-3 px-4 font-semibold text-sm w-5">Id</th>
                 <th class="py-3 px-4 font-semibold text-sm">name</th>
                 <th class="py-3 px-4 font-semibold text-sm text-center w-24">status</th>
-                <th class="py-3 px-4 font-semibold text-sm text-right w-24">actions</th>
+                <th class="py-3 px-4 font-semibold text-sm text-center w-24">actions</th>
             </th></tr>
         </thead>
         <tbody class="text-gray-600">
-            <tr>
+{{--             <tr>
                 <td class="py-3 px-4 border border-gray-200">1</td>
                 <td class="py-3 px-4 border border-gray-200 max-w-xs overflow-hidden whitespace-nowrap">Zápočtový test z matematiky</td>
                 <td class="py-3 px-4 border border-gray-200 text-center text-green-500">active</td>
@@ -25,7 +25,31 @@
                         <a href="#" class="px-1 text-red-500 hover:text-red-600"><i class="fad fa-stop"></i></a>
                     </div>
                 </td>
+            </tr> --}}
+            @forelse($exams as $exam)
+            <tr>
+                <td class="py-3 px-4 border border-gray-200">{{ $exam->id }}</td>
+                <td class="py-3 px-4 border border-gray-200 max-w-xs overflow-hidden whitespace-nowrap">{{ $exam->name }}</td>
+                <td class="py-3 px-4 border border-gray-200 {{ $exam->active == 1 ? 'text-green-500' : 'text-red-500' }}">
+                    @if ($exam->active == 1)
+                        active
+                    @else
+                        stopped
+                    @endif
+                </td>
+                <td class="border border-gray-200">
+                    @if ($exam->active == 1)
+                        <a href="#" class="px-1 text-green-500 hover:text-green-600"><i class="fad fa-play"></i></a>
+                    @else
+                        <a href="#" class="px-1 text-red-500 hover:text-red-600"><i class="fad fa-stop"></i></a>
+                    @endif
+                </td>
             </tr>
+            @empty
+                <tr>
+                    <td>žiadne otazky</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 

@@ -22,7 +22,6 @@ class AdminController extends Controller
             'password'=>'required|min:5|max:15',
             'token'=>'required',
         ]);
-        //return $request->input();
         $teacher = new Teacher;
         $teacher->forename = $request->forename;
         $teacher->surname = $request->surname;
@@ -57,10 +56,5 @@ class AdminController extends Controller
     function logout(){
         session()->pull('LoggedTeacher');
         return redirect('/admin');
-    }
-
-    function dashboard(){
-        $data = ['LoggedTeacherInfo'=>Teacher::where('id','=', session('LoggedTeacher'))->first()];
-        return view('admin.dashboard', $data);
     }
 }

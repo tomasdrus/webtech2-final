@@ -49,3 +49,30 @@ dropdowns.forEach(dropdown => {
         } 
     });
 });
+
+    /* Dynamically adding and removing elements*/
+    const dynamicElementsAdding = (containerId, buttonAddId, functionIndexing) => {
+        const container = document.getElementById(containerId);
+        const buttonAdd = document.getElementById(buttonAddId);
+        const buttonDelFirst = document.querySelector(`#${containerId} > :not(button) button`)
+
+        const functionDel = (e) => {
+            if(document.querySelectorAll(`#${containerId} > :not(button)`).length <= 1){
+                return;
+            }
+            e.target.parentElement.remove();
+            functionIndexing(containerId);
+        }
+
+        buttonDelFirst.addEventListener('click', functionDel);
+
+        buttonAdd.addEventListener('click', () => {
+            const elementCopy = buttonAdd.previousElementSibling.cloneNode(true);
+            const buttonDel = elementCopy.querySelector('button');
+            const input = elementCopy.querySelector('input');
+            buttonDel.addEventListener('click', functionDel);
+            //input.value = null;
+            container.insertBefore(elementCopy, buttonAdd);
+            functionIndexing(containerId);
+        })
+    }

@@ -87,6 +87,9 @@
 
 </div>
 
+@endsection
+
+@section('script')
 <script>
     /* Toggle different question type showing */
     const typeSelect = document.getElementById('type');
@@ -102,33 +105,7 @@
         });
     })
 
-    /* Adding and removing */
-    const dynamicElementsAdding = (containerId, buttonAddId, functionIndexing) => {
-        const container = document.getElementById(containerId);
-        const buttonAdd = document.getElementById(buttonAddId);
-        const buttonDelFirst = document.querySelector(`#${containerId} > :not(button) button`)
-
-        const functionDel = (e) => {
-            if(document.querySelectorAll(`#${containerId} > :not(button)`).length <= 1){
-                return;
-            }
-            e.target.parentElement.remove();
-            functionIndexing(containerId);
-        }
-
-        buttonDelFirst.addEventListener('click', functionDel);
-
-        buttonAdd.addEventListener('click', () => {
-            const elementCopy = buttonAdd.previousElementSibling.cloneNode(true);
-            const buttonDel = elementCopy.querySelector('button');
-            const input = elementCopy.querySelector('input');
-            buttonDel.addEventListener('click', functionDel);
-            input.value = null;
-            container.insertBefore(elementCopy, buttonAdd);
-            functionIndexing(containerId);
-        })
-    }
-
+    /* Functions for dynamically adding elements */
     const indexingPairing = (containerId) => {
         const container = document.querySelectorAll(`#${containerId} > :not(button)`);
         container.forEach((item, index) => {
@@ -148,7 +125,5 @@
     dynamicElementsAdding('pairing', 'pairingAdd', indexingPairing);
     dynamicElementsAdding('selecting', 'selectingAdd', indexingSelecting);
 
-    
 </script>
-
 @endsection
