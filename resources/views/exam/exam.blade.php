@@ -5,15 +5,17 @@
 <header class="fixed top-0 bg-white w-full py-4 shadow-md">
     <div class="container max-w-screen-xl mx-auto px-4">
         <div class="flex justify-between px-2">
-            <span>Tomáš Drus 97758</span>
+            <span>{{ $student->forename }} {{ $student->surname }} {{ $student->ais }}</span>
             <span>90 min 30sec</span>
         </div>
     </div>
 </header>
 
 <div class="container max-w-screen-xl mx-auto px-4 my-20">
-    <form action="" method="post" class="bg-white p-7 rounded-md">
+    <form action="{{ route('exam.finish')}}" method="post" class="bg-white p-7 rounded-md">
 
+        @csrf
+        
         {{-- Heading --}}
         <h2 class="text-xl text-center font-semibold mb-10">Test z matematiky :)</h2>
 

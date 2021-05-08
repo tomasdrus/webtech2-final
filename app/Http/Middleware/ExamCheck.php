@@ -16,11 +16,10 @@ class ExamCheck
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!session()->has('LoggedTeacher') && ($request->path() !='admin' && $request->path() !='admin/register' )){
-            return redirect('admin')->with('error','You must be logged in');
+        if(!session()->has('StudentExam') && $request->path() != '/'){
+            return redirect('/')->with('error','You must be logged in');
         }
-
-        if(session()->has('LoggedTeacher') && ($request->path() == 'admin' || $request->path() == 'admin/register' ) ){
+        if(session()->has('StudentExam') && $request->path() == '/'){
             return back();
         }
         return $next($request)->header('Cache-Control','no-cache, no-store, max-age=0, must-revalidate')

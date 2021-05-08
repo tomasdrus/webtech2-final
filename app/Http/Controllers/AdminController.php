@@ -2,18 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use App\Models\Teacher;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
+    function dashboard(){
+        $exams = ['exams'=>DB::table('exams')->get()->all()];
+        $teacher = ['LoggedTeacherInfo'=>Teacher::where('id','=', session('LoggedTeacher'))->first()];
+        
+        return view('admin/dashboard')->with($teacher)->with($exams);
+    }
+
     function login() {
         return view('admin/auth/login');
     }
+
     function registration() {
         return view('admin/auth/registration');
     }
+
     function save (Request $request) {
         $request->validate([
             'forename'=>'required',

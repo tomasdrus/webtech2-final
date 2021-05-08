@@ -11,7 +11,7 @@
             <p>{{ Session::get('error') }}</p>
         @endif
     
-        <label for="token" class="font-semibold text-sm text-gray-900 mb-2 block">Test token
+        <label class="font-semibold text-sm text-gray-900 mb-2 block">Test token
             <span class="text-red-500 ml-1">@error('token') {{$message}} @enderror</span>
         </label>
         <input type="text" name="token" value="{{ old('token') }}" class="auth__input">

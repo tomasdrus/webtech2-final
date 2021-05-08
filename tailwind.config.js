@@ -7,7 +7,6 @@ module.exports = {
   theme: {
     extend: {
       gridTemplateColumns: {
-        // Complex site-specific column configuration
        'question': '3rem auto',
       }
     },

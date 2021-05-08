@@ -20,13 +20,15 @@ use App\Http\Controllers\ExamController;
 /* Admin */
 Route::post('admin/save',[AdminController::class, 'save'])->name('admin.save');
 Route::post('admin/check',[AdminController::class, 'check'])->name('admin.check');
-Route::get('admin/logout',[AdminController::class, 'logout'])->name('admin.logout');
 Route::get('admin/registration',[AdminController::class, 'registration'])->name('admin.registration');
 Route::get('admin',[AdminController::class, 'login'])->name('admin.login');
 
 Route::group(['middleware'=>['AdminCheck']], function(){
     /* Dashboard */
-    Route::get('admin/dashboard',[AdminExamController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('admin/dashboard',[AdminController::class, 'dashboard'])->name('admin.dashboard');
+
+    /* Logout */
+    Route::get('admin/logout',[AdminController::class, 'logout'])->name('admin.logout');
 
     /* Exam */ 
     Route::get('admin/exam',[AdminExamController::class, 'index'])->name('admin.exam');
@@ -41,20 +43,10 @@ Route::group(['middleware'=>['AdminCheck']], function(){
 
 
 /* Exam */
-
 Route::get('/',[ExamController::class, 'login'])->name('exam.login');
 Route::post('exam/check',[ExamController::class, 'check'])->name('exam.check');
 
-Route::group(['middleware'=>['AdminCheck']], function(){
-    /* Exam */ 
-    Route::get('exam',[ExamController::class, 'index'])->name('exam.exam');
+Route::group(['middleware'=>['ExamCheck']], function(){
+    Route::get('exam',[ExamController::class, 'index'])->name('exam');
+    Route::post('exam/finish',[ExamController::class, 'finish'])->name('exam.finish');
 });
-
-
-/* Route::get('/', function () {
-    return view('exam/login');
-}); */
-/* 
-Route::get('exam', function () {
-    return view('exam/exam');
-}); */

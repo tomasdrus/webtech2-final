@@ -10,14 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class AdminExamController extends Controller
 {
-
-    function dashboard(){
-        $exams = ['exams'=>DB::table('exams')->get()->all()];
-        $teacher = ['LoggedTeacherInfo'=>Teacher::where('id','=', session('LoggedTeacher'))->first()];
-        
-        return view('admin.dashboard')->with($teacher)->with($exams);
-    }
-
+    
     function index () {
         $exams = ['exams'=>DB::table('exams')->get()->all()];
         $teacher = ['LoggedTeacherInfo'=>Teacher::where('id','=', session('LoggedTeacher'))->first()];
