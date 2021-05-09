@@ -10,8 +10,7 @@ class ExamQuestion extends Model
     public $timestamps = false;
     use HasFactory;
 
-    public function questions()
-    {
-        return $this->hasMany(Question::class, 'id', 'question_id');
-    }
+/*     public function questions(){
+        return $this->hasMany(Question::class, 'id', 'exam_id');
+    } */
 }

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Exam;
+use App\Models\Pair;
+use App\Models\Option;
+use App\Models\Question;
 use App\Models\StudentExam;
 use App\Models\ExamQuestion;
 use Illuminate\Http\Request;
@@ -11,33 +14,23 @@ class ExamController extends Controller
 {
 
     function index() {
-        $student = StudentExam::where('id','=', session('StudentExam'))->first();
-        $questions = ExamQuestion::find(1)->questions;
-        
-        //$questions[0]->novinka = 'samo';
-        dd($questions[0]->novinka);
+        $student = StudentExam::where('id', session('StudentExam'))->first();
+        $exam = Exam::find($student->exam_id);
+        $questions = $exam->questions;
+
         foreach ($questions as $question) {
             if($question->type == 'drawing' || $question->type == 'mathematical' || $question->type == 'classical'){
                 continue;
             }
             if($question->type == 'selecting'){
-                //$option = Option::find()
-                //$question->options = [];
+                $question->options = Option::where('question_id', $question->id)->get();
             }
             if($question->type == 'pairing'){
-                $question->oairs = [];
+                $question->pairs = Pair::where('question_id', $question->id)->get();;
             }
         }
-        /* 
-        [
-            {id, name, type}
-            {id, name, type, [answer, rigthness]}
-            {id, name, type, [option, rigthness]}
-        ]
-        */
-
-        $student = ['student'=>$student];
-        return view('exam/exam')->with($student);
+        //dd($questions[1]->options[0]->answer);
+        return view('exam/exam')->with('student', $student)->with('questions', $questions);
     }
 
     function login() {

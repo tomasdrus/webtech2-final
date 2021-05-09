@@ -9,4 +9,8 @@ class Question extends Model
 {
     public $timestamps = false;
     use HasFactory;
+
+    public function exams(){
+        return $this->belongsToMany(Exam::class, 'exam_questions');
+    }
 }
