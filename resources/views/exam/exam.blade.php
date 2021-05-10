@@ -27,8 +27,9 @@
 
                     {{-- Question type 1 --}}
                     @if ($question->type == 'classical')
-                        <label for="answer1" class="block mb-2">Write the answer:</label>
-                        <input type="text" name="answer1" id="answer1" value="" class="border border-gray-600 rounded-md px-3 py-1.5 text-sm w-full focus:outline-none focus:ring-1 focus:ring-blue-600" >
+                        <label class="block">Write the answer:
+                            <input type="text" name="{{ $question->id }}" class="border border-gray-600 rounded-md px-3 py-1.5 text-sm w-full focus:outline-none focus:ring-1 focus:ring-blue-600 mt-2">
+                        </label>
                     @endif
 
                     {{-- Question type 2 --}}
@@ -36,7 +37,7 @@
                         <p class="block mb-2">Choose the answer</p>
                         @foreach ($question->options as $option)
                             <label class="block mb-2">
-                                <input type="radio" name="age" value="1" class="mr-2">
+                                <input type="radio" name="{{ $question->id }}" value="{{ $option->id }}" class="mr-2">
                                 {{ $option->answer }}
                             </label>
                         @endforeach
@@ -48,12 +49,13 @@
 
                         @foreach ($question->pairs as $pair)
                             <div class="mb-3">
-                                <label for="cars">{{ $pair->option }}</label>
-                                <select name="cars" id="cars">
-                                    @foreach ($question->pairs as $pair)
-                                        <option value="{{ $pair->id }}">{{ $pair->answer }}</option>          
-                                    @endforeach
-                                </select>
+                                <label>{{ $pair->option }}
+                                    <select name="{{ $question->id }}-{{ $pair->id }}">
+                                        @foreach ($question->pairs as $pair)
+                                            <option value="{{ $pair->id }}">{{ $pair->answer }}</option>          
+                                        @endforeach
+                                    </select>
+                                </label>
                             </div>
                         @endforeach
                     @endif
@@ -65,12 +67,13 @@
                             <button type="button" class="drawing__reset bg-yellow-500 hover:bg-yellow-600 focus:bg-yellow-600 focus:outline-none text-white py-0.5 px-2 ml-1 rounded-md text-sm">Reset</button>
                         </p>
                         <canvas class="border border-gray-600 rounded-md drawing__canvas cursor-pointer"></canvas>
-                        <input type="hidden" name="obrazok" class="drawing__input">
+                        <input type="hidden" name="{{ $question->id }}" class="drawing__input">
                     @endif
 
                     {{-- Question type 5 --}}
                     @if ($question->type == 'mathematical')
                         <p class="block mb-2">Make correct answer</p>
+                        <input type="hidden" name="{{ $question->id }}" class="drawing__input">
                     @endif
                 </div>
             </div>

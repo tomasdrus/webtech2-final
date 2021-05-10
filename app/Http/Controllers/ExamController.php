@@ -8,6 +8,7 @@ use App\Models\Option;
 use App\Models\Question;
 use App\Models\StudentExam;
 use App\Models\ExamQuestion;
+use App\Models\StudentAnswer;
 use Illuminate\Http\Request;
 
 class ExamController extends Controller
@@ -29,7 +30,6 @@ class ExamController extends Controller
                 $question->pairs = Pair::where('question_id', $question->id)->get();;
             }
         }
-        //dd($questions[1]->options[0]->answer);
         return view('exam/exam')->with('student', $student)->with('questions', $questions);
     }
 
@@ -70,7 +70,38 @@ class ExamController extends Controller
         return redirect('exam');
     }
 
-    function finish(){
+    function finish(Request $request){
+        $student = StudentExam::where('id', session('StudentExam'))->first();
+
+        foreach($request->all() as $key => $value) {
+            if($value == '_token'){
+                continue;
+            }
+
+            $question = explode( '-', $key);
+            if(count($question) < 1){
+                $studentAnswer = StudentAnswer::create([
+                    'answer' => $value,
+                    'question_id' => $question[0],
+                    'student_exam_id' => $student->id,
+                ]);
+            }
+        
+            if(!$studentAnswer->save()){
+                return back()->with('error', 'db error');
+            }
+        }
+        //dd('haha');
+        
+/*         $results = $request->all();
+        dd($request[2]);
+        dd(count($request->all())); */
+
+/* 
+        for($i = 0, $i < count($request->all()), $i++){
+            
+        } */
+
         session()->pull('StudentExam');
         return redirect('/');
     }
