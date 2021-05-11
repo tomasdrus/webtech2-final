@@ -8,8 +8,9 @@ use App\Models\Option;
 use App\Models\Question;
 use App\Models\StudentExam;
 use App\Models\ExamQuestion;
-use App\Models\StudentAnswer;
 use Illuminate\Http\Request;
+use App\Models\StudentAnswer;
+use App\Models\StudentAnswerPair;
 
 class ExamController extends Controller
 {
@@ -74,35 +75,37 @@ class ExamController extends Controller
         $student = StudentExam::where('id', session('StudentExam'))->first();
 
         foreach($request->all() as $key => $value) {
-            if($value == '_token'){
+            if($key == '_token'){
                 continue;
             }
 
-            $question = explode( '-', $key);
-            if(count($question) < 1){
-                $studentAnswer = StudentAnswer::create([
+            $questions = explode('-', $key);
+
+            if(count($questions) == 1){
+                $rightness = Option::where('question_id', $key)->where('rightness', 1)->where('answer', $value)->exists();
+
+                StudentAnswer::create([
                     'answer' => $value,
-                    'question_id' => $question[0],
+                    'rightness' => $rightness,
+                    'question_id' => $key,
                     'student_exam_id' => $student->id,
                 ]);
             }
-        
-            if(!$studentAnswer->save()){
-                return back()->with('error', 'db error');
+
+            if(count($questions) > 1){
+                list($option, $answer) = explode('~', $value);
+                $rightness = Pair::where('question_id', $key)->where('option', $option)->where('answer', $answer)->exists();
+                StudentAnswerPair::create([
+                    'option' => $option,
+                    'answer' => $answer,
+                    'rightness' => $rightness,
+                    'question_id' => $questions[1],
+                    'student_exam_id' => $student->id,
+                ]);
             }
         }
-        //dd('haha');
-        
-/*         $results = $request->all();
-        dd($request[2]);
-        dd(count($request->all())); */
-
-/* 
-        for($i = 0, $i < count($request->all()), $i++){
-            
-        } */
 
         session()->pull('StudentExam');
-        return redirect('/');
+        return redirect('/')->with('success', 'Exam finished');
     }
 }

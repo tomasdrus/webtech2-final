@@ -34,6 +34,10 @@
                         <i class="nav__icon fas fa-puzzle-piece"></i>All exams
                     </a>
 
+                    <a class="nav__link link--second {{ (request()->is('admin/exam/finished')) ? 'link--active' : '' }}" href="{{ route('admin.exam.finished') }}">
+                        <i class="nav__icon fas fa-puzzle-piece"></i>Finished exams
+                    </a>
+
                     <a class="nav__link link--second {{ (request()->is('admin/exam/create')) ? 'link--active' : '' }}" href="{{ route('admin.exam.create') }}">
                         <i class="nav__icon fas fa-puzzle-piece"></i>Create exam
                     </a>

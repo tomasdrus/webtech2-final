@@ -18,6 +18,13 @@ class AdminExamController extends Controller
         return view('admin.exam.index')->with($teacher)->with($exams);
     }
 
+    function finished () {
+        $exams = ['exams'=>DB::table('exams')->get()->all()];
+        $teacher = ['LoggedTeacherInfo'=>Teacher::where('id','=', session('LoggedTeacher'))->first()];
+        
+        return view('admin.exam.finished')->with($teacher)->with($exams);
+    }
+
     function create () {
         $questions = ['questions'=>DB::table('questions')->get()->all()];
         $teacher = ['LoggedTeacherInfo'=>Teacher::where('id','=', session('LoggedTeacher'))->first()];

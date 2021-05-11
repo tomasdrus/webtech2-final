@@ -37,7 +37,7 @@
                         <p class="block mb-2">Choose the answer</p>
                         @foreach ($question->options as $option)
                             <label class="block mb-2">
-                                <input type="radio" name="{{ $question->id }}" value="{{ $option->id }}" class="mr-2">
+                                <input type="radio" name="{{ $question->id }}" value="{{ $option->answer }}" class="mr-2">
                                 {{ $option->answer }}
                             </label>
                         @endforeach
@@ -47,12 +47,12 @@
                     @if ($question->type == 'pairing')
                         <p class="block mb-2">Choose correct answers</p>
 
-                        @foreach ($question->pairs as $pair)
+                        @foreach ($question->pairs as $pairs)
                             <div class="mb-3">
-                                <label>{{ $pair->option }}
-                                    <select name="{{ $question->id }}-{{ $pair->id }}">
+                                <label>{{ $pairs->option }}
+                                    <select name="{{ $question->id }}-{{ $pairs->id }}">
                                         @foreach ($question->pairs as $pair)
-                                            <option value="{{ $pair->id }}">{{ $pair->answer }}</option>          
+                                            <option value="{{ $pairs->option }}~{{ $pair->answer }}">{{ $pair->answer }}</option>          
                                         @endforeach
                                     </select>
                                 </label>

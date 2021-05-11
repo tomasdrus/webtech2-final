@@ -5,12 +5,12 @@
 <div class="flex items-center justify-center h-screen">
     <form action="{{route('exam.check')}}" method="post" class="p-8 max-w-md flex-grow bg-white rounded-xl">
 
-        <h1 class="text-xl mb-7 text-gray-900 text-center font-bold">Admin login</h1>
+        <h1 class="text-xl mb-7 text-gray-900 text-center font-bold">Exam login</h1>
 
-        @if (Session::get('error'))
-            <p>{{ Session::get('error') }}</p>
+        @if (Session::get('success'))
+            <p class="px-4 py-3 mb-3 bg-green-200 text-green-800 rounded">{{ Session::get('success') }}</p>
         @endif
-    
+
         <label class="font-semibold text-sm text-gray-900 mb-2 block">Test token
             <span class="text-red-500 ml-1">@error('token') {{$message}} @enderror</span>
         </label>
@@ -33,7 +33,7 @@
     
         @csrf
 
-        <button type="submit" class="auth__button">Login</button>
+        <button type="submit" class="auth__button">Start exam</button>
     </form>
 </div>
 
