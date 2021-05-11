@@ -1,9 +1,9 @@
 @extends('layouts.admin')
-@section('title', 'Admin - dashboard')
+@section('title', 'Admin - active student exams')
 @section('content')
 
 <div class="bg-white p-5 m-5 rounded-lg">
-    <h4 class="font-semibold mb-3">Finished exams</h4>
+    <h4 class="font-semibold mb-3">Active student exams</h4>
 
     @if (Session::get('success'))
         <p class="px-4 py-3 mb-3 bg-green-200 text-green-800 rounded">{{ Session::get('success') }}</p>
@@ -16,23 +16,23 @@
     <table class="w-full bg-white border border-gray-200">
         <thead class="bg-gray-200 text-gray-700 text-sm uppercase font-semibold text-left">
             <tr>
-                <th class="py-3 px-4 font-semibold text-sm w-5">Id</th>
+                <th class="py-3 px-4 font-semibold text-sm w-5">ID</th>
                 <th class="py-3 px-4 font-semibold text-sm">Student name</th>
                 <th class="py-3 px-4 font-semibold text-sm text-center">Student AIS</th>
-                <th class="py-3 px-4 font-semibold text-sm text-center">Exam token</th>
+                <th class="py-3 px-4 font-semibold text-sm text-center">Exam ID</th>
                 <th class="py-3 px-4 font-semibold text-sm text-center w-20">Detail</th>
             </th></tr>
         </thead>
         <tbody class="text-gray-600">
 
-            @forelse($exams as $exam)
+            @forelse($studentExams as $studentExam)
             <tr>
-                <td class="py-3 px-4 border border-gray-200">{{ $exam->id }}</td>
-                <td class="py-3 px-4 border border-gray-200">{{ $exam->name }}</td>
-                <td class="py-3 px-4 border border-gray-200 text-center">{{ $exam->token }}</td>
-                <td class="py-3 px-4 border border-gray-200 text-center">{{ $exam->token }}</td>
+                <td class="py-3 px-4 border border-gray-200">{{ $studentExam->id }}</td>
+                <td class="py-3 px-4 border border-gray-200">{{ $studentExam->forename }} {{ $studentExam->surname }}</td>
+                <td class="py-3 px-4 border border-gray-200 text-center">{{ $studentExam->ais }}</td>
+                <td class="py-3 px-4 border border-gray-200 text-center">{{ $studentExam->exam_id }}</td>
                 <td class="border border-gray-200 text-center">
-                    <a href="{{ route('admin.exam.update',['id' => $exam->id])}}" class="px-1 text-blue-500 hover:text-blue-600"><i class="far fa-eye"></i></a>   
+                    <a href="{{ route('admin.student.detail',['id' => $studentExam->id])}}" class="px-1 text-blue-500 hover:text-blue-600"><i class="far fa-eye"></i></a>   
                 </td>
             </tr>
             @empty

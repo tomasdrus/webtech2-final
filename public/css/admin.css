@@ -6,7 +6,7 @@
     --blue-hover: #0b5ed7;
     --green: #27ae60;
     --red: #c0392b;
-    --navbar-width: 250px;
+    --navbar-width: 300px;
 }
 
 body{
@@ -32,7 +32,7 @@ a:hover {
     background-color: var(--white);
     position: fixed;
     top: 0;
-    width: calc(100% - 250px);
+    width: calc(100% - var(--navbar-width));
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -129,7 +129,7 @@ a:hover {
 .page__content{
     margin-top: 60px;
     width: 100%;
-    margin-left: 250px;
+    margin-left: var(--navbar-width);
     transition: 0.5s;
 }
 .page--open {

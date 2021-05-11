@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Admin - question all')
+@section('title', 'Admin - all questions')
 @section('content')
 
 <div class="bg-white p-5 m-5 rounded-lg">
