@@ -18,8 +18,8 @@ class ExamController extends Controller
     function index() {
         $student = StudentExam::where('id', session('StudentExam'))->first();
         $exam = Exam::find($student->exam_id);
-        $questions = $exam->questions;
 
+        $questions = $exam->questions;
         foreach ($questions as $question) {
             if($question->type == 'drawing' || $question->type == 'mathematical' || $question->type == 'classical'){
                 continue;
@@ -31,7 +31,7 @@ class ExamController extends Controller
                 $question->pairs = Pair::where('question_id', $question->id)->get();;
             }
         }
-        return view('exam/exam')->with('student', $student)->with('questions', $questions);
+        return view('exam/exam')->with('student', $student)->with('questions', $questions)->with('exam', $exam);
     }
 
     function login() {
@@ -46,13 +46,10 @@ class ExamController extends Controller
             'forename'=>'required',
             'surname'=>'required',
             'ais'=>'required',
-            'token'=>'required',
+            'token'=>'required|exists:exams',
         ]);
 
         $exam = Exam::where('token', '=', $request->token)->first();
-        if(!$exam){
-            return back()->with('error', 'Wrong token');
-        }
 
         $studentExam = StudentExam::create([
             'forename' => $request->forename,
@@ -64,7 +61,7 @@ class ExamController extends Controller
         ]);
 
         if(!$studentExam->save()){
-            return back()->with('error', 'db error');
+            return back()->with('error', 'DB error');
         }
 
         $request->session()->put('StudentExam', $studentExam->id);
@@ -72,7 +69,9 @@ class ExamController extends Controller
     }
 
     function finish(Request $request){
-        $student = StudentExam::where('id', session('StudentExam'))->first();
+        $studentExam = StudentExam::where('id', session('StudentExam'))->first();
+
+        $studentExam->update(['end'=> now()]);
 
         foreach($request->all() as $key => $value) {
             if($key == '_token'){
@@ -88,7 +87,7 @@ class ExamController extends Controller
                     'answer' => $value,
                     'rightness' => $rightness,
                     'question_id' => $key,
-                    'student_exam_id' => $student->id,
+                    'student_exam_id' => $studentExam->id,
                 ]);
             }
 
@@ -100,7 +99,7 @@ class ExamController extends Controller
                     'answer' => $answer,
                     'rightness' => $rightness,
                     'question_id' => $questions[1],
-                    'student_exam_id' => $student->id,
+                    'student_exam_id' => $studentExam->id,
                 ]);
             }
         }

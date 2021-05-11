@@ -1,12 +1,12 @@
 @extends('layouts.master')
-@section('title', 'home')
+@section('title', $exam->name)
 @section('content')
 
 <header class="fixed top-0 bg-white w-full py-4 shadow-md">
     <div class="container max-w-screen-xl mx-auto px-4">
         <div class="flex justify-between px-2">
             <span>{{ $student->forename }} {{ $student->surname }} {{ $student->ais }}</span>
-            <span>90 min 30sec</span>
+            <span>{{ $exam->length }}</span>
         </div>
     </div>
 </header>
@@ -17,11 +17,11 @@
         @csrf
         
         {{-- Heading --}}
-        <h2 class="text-xl text-center font-semibold mb-10">Test z matematiky :)</h2>
+        <h2 class="text-xl text-center font-semibold mb-10">{{ $exam->name }}</h2>
 
         @foreach ($questions as $question)
             <div class="grid grid-cols-question mb-10">
-                <span class="font-semibold">{{ $question->id }}</span>
+                <span class="font-semibold">{{ $loop->iteration }}.</span>
                 <div>
                     <h2 class="font-semibold mb-3">{{ $question->name }}</h2>
 
@@ -47,17 +47,19 @@
                     @if ($question->type == 'pairing')
                         <p class="block mb-2">Choose correct answers</p>
 
-                        @foreach ($question->pairs as $pairs)
-                            <div class="mb-3">
-                                <label>{{ $pairs->option }}
-                                    <select name="{{ $question->id }}-{{ $pairs->id }}">
-                                        @foreach ($question->pairs as $pair)
-                                            <option value="{{ $pairs->option }}~{{ $pair->answer }}">{{ $pair->answer }}</option>          
-                                        @endforeach
-                                    </select>
-                                </label>
-                            </div>
-                        @endforeach
+                        <ul class="list-disc ml-4">
+                            @foreach ($question->pairs as $pairs)
+                                <li class="py-1.5">
+                                    <label>{{ $pairs->option }}
+                                        <select name="{{ $question->id }}-{{ $pairs->id }}" class="border border-gray-600 rounded-md px-2 py-1 cursor-pointer ml-3">
+                                            @foreach ($question->pairs as $pair)
+                                                <option value="{{ $pairs->option }}~{{ $pair->answer }}">{{ $pair->answer }}</option>          
+                                            @endforeach
+                                        </select>
+                                    </label>
+                                </li>
+                            @endforeach
+                        </ul>
                     @endif
 
                     {{-- Question type 4 --}}
