@@ -34,6 +34,8 @@ Route::group(['middleware'=>['AdminCheck']], function(){
     Route::get('admin/exam',[AdminExamController::class, 'index'])->name('admin.exam');
     Route::get('admin/exam/create',[AdminExamController::class, 'create'])->name('admin.exam.create');
     Route::post('admin/exam/save',[AdminExamController::class, 'save'])->name('admin.exam.save');
+    Route::delete('admin/exam/destroy/{id}',[AdminExamController::class, 'destroy'])->name('admin.exam.destroy');
+    Route::patch('admin/exam/update/{id}',[AdminExamController::class, 'update'])->name('admin.exam.update');
 
     /* Question */
     Route::get('admin/question',[AdminQuestionController::class, 'index'])->name('admin.question');

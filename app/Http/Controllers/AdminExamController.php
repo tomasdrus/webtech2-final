@@ -56,4 +56,32 @@ class AdminExamController extends Controller
         }
         return back()->with('error', 'Question not created');
     }
+
+    function destroy($id){
+        $exam = Exam::find($id);
+        if(!$exam){
+            return back()->with('error', 'Exam not found');
+        }
+
+        $examQuestionDestroy = ExamQuestion::where('exam_id',$id)->delete();
+        $examDestroy = Exam::destroy($id);
+        if(!$examDestroy || !$examQuestionDestroy){
+            return back()->with('error', 'Exam delete failed');
+        }
+
+        return back()->with('success', 'Exam was deleted');
+    }
+
+    function update($id){
+        $exam = Exam::find($id);
+        if(!$exam)
+            return back()->with('error', 'Exam not found');        
+        
+        $exam->update(['active'=> $exam->active == true ? false : true ]);
+
+        if(!$exam)
+            return back()->with('error', 'Changing exam state faild');       
+
+        return back()->with('success', 'Exam state was changed');
+    }
 }

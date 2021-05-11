@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Exam extends Model
 {
+    protected $fillable = ['name', 'token', 'length', 'active'];
+
     public $timestamps = false;
     use HasFactory;
 
