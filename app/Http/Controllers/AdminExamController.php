@@ -6,32 +6,35 @@ use Illuminate\Http\Request;
 use App\Models\Teacher;
 use App\Models\Exam;
 use App\Models\ExamQuestion;
+use App\Models\StudentExam;
 use Illuminate\Support\Facades\DB;
 
 class AdminExamController extends Controller
 {
-    
-    function index () {
-        $exams = ['exams'=>DB::table('exams')->get()->all()];
-        $teacher = ['LoggedTeacherInfo'=>Teacher::where('id','=', session('LoggedTeacher'))->first()];
-        
+    function index()
+    {
+        $exams = ['exams' => DB::table('exams')->get()->all()];
+        $teacher = ['LoggedTeacherInfo' => Teacher::where('id', '=', session('LoggedTeacher'))->first()];
+
         return view('admin.exam.index')->with($teacher)->with($exams);
     }
 
-    function create () {
-        $questions = ['questions'=>DB::table('questions')->get()->all()];
-        $teacher = ['LoggedTeacherInfo'=>Teacher::where('id','=', session('LoggedTeacher'))->first()];
+    function create()
+    {
+        $questions = ['questions' => DB::table('questions')->get()->all()];
+        $teacher = ['LoggedTeacherInfo' => Teacher::where('id', '=', session('LoggedTeacher'))->first()];
 
         return view('admin.exam.create')->with($teacher)->with($questions);
     }
 
-    function save(Request $request){   
+    function save(Request $request)
+    {
         $exam = new Exam();
 
         $request->validate([
-            'name'=>'required',
-            'token'=>'required',
-            'length'=>'required',
+            'name' => 'required',
+            'token' => 'required',
+            'length' => 'required',
         ]);
 
         $exam->name = $request->name;
@@ -39,16 +42,16 @@ class AdminExamController extends Controller
         $exam->length = $request->length;
         $exam->active = false;
 
-        if($exam->save()){
+        if ($exam->save()) {
             $questions = $request->questions;
 
-            for($i = 0 ; $i < count($questions) ; $i++){
+            for ($i = 0; $i < count($questions); $i++) {
                 $exam_question = new ExamQuestion();
 
                 $exam_question->exam_id = $exam->id;
                 $exam_question->question_id = $questions[$i];
 
-                if(!$exam_question->save()){
+                if (!$exam_question->save()) {
                     return back()->with('error', 'Question not created');
                 }
             }
@@ -57,31 +60,50 @@ class AdminExamController extends Controller
         return back()->with('error', 'Question not created');
     }
 
-    function destroy($id){
+    function destroy($id)
+    {
         $exam = Exam::find($id);
-        if(!$exam){
+        if (!$exam) {
             return back()->with('error', 'Exam not found');
         }
 
-        $examQuestionDestroy = ExamQuestion::where('exam_id',$id)->delete();
+        $examQuestionDestroy = ExamQuestion::where('exam_id', $id)->delete();
         $examDestroy = Exam::destroy($id);
-        if(!$examDestroy || !$examQuestionDestroy){
+        if (!$examDestroy || !$examQuestionDestroy) {
             return back()->with('error', 'Exam delete failed');
         }
 
         return back()->with('success', 'Exam was deleted');
     }
 
-    function update($id){
+    function update($id)
+    {
         $exam = Exam::find($id);
-        if(!$exam)
-            return back()->with('error', 'Exam not found');        
-        
-        $exam->update(['active'=> $exam->active == true ? false : true ]);
+        if (!$exam)
+            return back()->with('error', 'Exam not found');
 
-        if(!$exam)
-            return back()->with('error', 'Changing exam state faild');       
+        $exam->update(['active' => $exam->active == true ? false : true]);
+
+        if (!$exam)
+            return back()->with('error', 'Changing exam state faild');
 
         return back()->with('success', 'Exam state was changed');
+    }
+
+    function generatePdf($id)
+    {
+        // dd($id);
+        // $student_exams = Exam::find($id)->studentExams();
+        $student_exams = StudentExam::where('exam_id', '=', $id)->get();
+        dd($student_exams);
+        // dd(sizeof($student_exams));
+
+        foreach ($student_exams as $student_exam) {
+            dd($student_exam);
+        }
+    }
+
+    function generateCsv($id)
+    {
     }
 }

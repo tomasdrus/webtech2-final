@@ -12,7 +12,13 @@ class Exam extends Model
     public $timestamps = false;
     use HasFactory;
 
-    public function questions(){
+    public function questions()
+    {
         return $this->belongsToMany(Question::class, 'exam_questions');
+    }
+
+    public function studentExams()
+    {
+        return $this->hasMany(StudentExam::class);
     }
 }
