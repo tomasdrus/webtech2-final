@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Teacher;
 use App\Models\Exam;
 use App\Models\ExamQuestion;
+use App\Models\StudentAnswer;
 use App\Models\StudentExam;
 use Illuminate\Support\Facades\DB;
 
@@ -92,14 +93,14 @@ class AdminExamController extends Controller
 
     function generatePdf($id)
     {
-        // dd($id);
-        // $student_exams = Exam::find($id)->studentExams();
         $student_exams = StudentExam::where('exam_id', '=', $id)->get();
         dd($student_exams);
-        // dd(sizeof($student_exams));
 
+        $students_answers = array();
+        $student_answers_pairs = array();
         foreach ($student_exams as $student_exam) {
-            dd($student_exam);
+            $answers = StudentAnswer::where('student_exam_id', '=', $student_exam->id)->get();
+            array_push($students_answers, $answers);
         }
     }
 
