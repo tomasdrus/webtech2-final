@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\StudentExam;
-use Mockery\Expectation;
+use Exception;
 
 class CsvController extends Controller
 {
@@ -28,7 +28,7 @@ class CsvController extends Controller
             fclose($file);
 
             return view('csv.index');
-        } catch (Expectation $e) {
+        } catch (Exception $e) {
             return view('csv.error');
         }
     }
