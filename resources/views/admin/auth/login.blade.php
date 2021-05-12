@@ -8,7 +8,7 @@
         <h1 class="text-xl mb-7 text-gray-900 text-center font-bold">Admin login</h1>
 
         @if (Session::get('error'))
-            <p>{{ Session::get('error') }}</p>
+            <p class="px-4 py-3 mb-3 bg-red-200 text-red-800 rounded">{{ Session::get('error') }}</p>
         @endif
     
         <label for="email" class="font-semibold text-sm text-gray-900 mb-2 block">Email

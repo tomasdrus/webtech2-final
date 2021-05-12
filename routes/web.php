@@ -1,10 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AdminQuestionController;
-use App\Http\Controllers\AdminExamController;
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminExamController;
+use App\Http\Controllers\AdminStudentController;
+use App\Http\Controllers\AdminQuestionController;
+use App\Http\Controllers\CsvController;
+use App\Http\Controllers\PdfController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,8 +41,15 @@ Route::group(['middleware' => ['AdminCheck']], function () {
     Route::delete('admin/exam/destroy/{id}', [AdminExamController::class, 'destroy'])->name('admin.exam.destroy');
     Route::patch('admin/exam/update/{id}', [AdminExamController::class, 'update'])->name('admin.exam.update');
     /* Test export */
-    Route::get('admin/exam/pdf/{id}', [AdminExamController::class, 'generatePdf'])->name('admin.exam.pdf');
-    Route::get('admin/exam/csv/{id}', [AdminExamController::class, 'generateCsv'])->name('admin.exam.csv');
+    Route::get('admin/pdf/{id}', [PdfController::class, 'showPdf'])->name('admin.pdf.show');
+    Route::get('admin/csv/{id}', [CsvController::class, 'showCsv'])->name('admin.csv.show');
+
+    Route::get('admin/generate/pdf/{id}', [PdfController::class, 'generatePdf'])->name('admin.pdf.generate');
+
+    /* Student */
+    Route::get('admin/student', [AdminStudentController::class, 'active'])->name('admin.student');
+    Route::get('admin/student/finished', [AdminStudentController::class, 'finished'])->name('admin.student.finished');
+    Route::get('admin/student/detail/{id}', [AdminStudentController::class, 'detail'])->name('admin.student.detail');
 
     /* Question */
     Route::get('admin/question', [AdminQuestionController::class, 'index'])->name('admin.question');

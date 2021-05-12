@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Admin - question all')
+@section('title', 'Admin - all exams')
 @section('content')
 
 <div class="bg-white p-5 m-5 rounded-lg">
@@ -33,19 +33,19 @@
                 <td class="py-3 px-4 border border-gray-200 max-w-xs overflow-hidden whitespace-nowrap">{{ $exam->name }}</td>
                 <td class="py-3 px-4 border border-gray-200 text-center">{{ $exam->length }} m</td>
                 <td class="border border-gray-200 text-center">
-                    <form action="{{ route('admin.exam.pdf',['id' => $exam->id])}} " method="GET">
+                    <form action="{{ route('admin.pdf.show',['id' => $exam->id])}} " method="GET">
                         @csrf
                         <button type="submit" class="px-1 text-red-500 hover:text-red-600"><i class="far fa-file-pdf"></i></button>
                     </form>
                 </td>
                 <td class="border border-gray-200 text-center">
-                    <form action="{{ route('admin.exam.csv',['id' => $exam->id])}} " method="GET">
+                    <form action="{{ route('admin.csv.show',['id' => $exam->id])}} " method="GET">
                         @csrf
                         <button type="submit" class="px-1 text-red-500 hover:text-red-600"><i class="far fa-file-csv"></i></button>
                     </form>
                 </td>
                 <td class="border border-gray-200 text-center">
-                    <form action="{{ route('admin.exam.csv',['id' => $exam->id])}} " method="POST">
+                    <form action="{{ route('admin.exam.destroy',['id' => $exam->id])}} " method="POST">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="px-1 text-red-500 hover:text-red-600"><i class="far fa-trash-alt"></i></button>

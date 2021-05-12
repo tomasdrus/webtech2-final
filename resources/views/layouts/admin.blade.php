@@ -26,6 +26,22 @@
 
             <li>
                 <span class="nav__link link--dropdown">
+                    <i class="nav__icon fas fa-puzzle-piece"></i>Questions
+                    <i class="nav__icon__drop fas fa-chevron-down"></i>
+                </span>
+                <div class="nav__dropdown">
+                    <a class="nav__link link--second {{ (request()->is('admin/question')) ? 'link--active' : '' }}" href="{{ route('admin.question') }}">
+                        <i class="nav__icon fas fa-puzzle-piece"></i>All questions
+                    </a>
+
+                    <a class="nav__link link--second {{ (request()->is('admin/question/create')) ? 'link--active' : '' }}" href="{{ route('admin.question.create') }}">
+                        <i class="nav__icon fas fa-puzzle-piece"></i>Create question
+                    </a>
+                </div>
+            </li>
+
+            <li>
+                <span class="nav__link link--dropdown">
                     <i class="nav__icon fas fa-puzzle-piece"></i>Exams
                     <i class="nav__icon__drop fas fa-chevron-down"></i>
                 </span>
@@ -42,16 +58,16 @@
 
             <li>
                 <span class="nav__link link--dropdown">
-                    <i class="nav__icon fas fa-puzzle-piece"></i>Questions
+                    <i class="nav__icon fas fa-puzzle-piece"></i>Student exams
                     <i class="nav__icon__drop fas fa-chevron-down"></i>
                 </span>
                 <div class="nav__dropdown">
-                    <a class="nav__link link--second {{ (request()->is('admin/question')) ? 'link--active' : '' }}" href="{{ route('admin.question') }}">
-                        <i class="nav__icon fas fa-puzzle-piece"></i>All questions
+                    <a class="nav__link link--second {{ (request()->is('admin/student')) ? 'link--active' : '' }}" href="{{ route('admin.student') }}">
+                        <i class="nav__icon fas fa-puzzle-piece"></i>Active student exams
                     </a>
 
-                    <a class="nav__link link--second {{ (request()->is('admin/question/create')) ? 'link--active' : '' }}" href="{{ route('admin.question.create') }}">
-                        <i class="nav__icon fas fa-puzzle-piece"></i>Create Question
+                    <a class="nav__link link--second {{ (request()->is('admin/student/finished')) ? 'link--active' : '' }}" href="{{ route('admin.student.finished') }}">
+                        <i class="nav__icon fas fa-puzzle-piece"></i>Finished student exams
                     </a>
                 </div>
             </li>

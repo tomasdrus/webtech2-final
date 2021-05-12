@@ -7,7 +7,9 @@ use App\Models\Teacher;
 use App\Models\Exam;
 use App\Models\ExamQuestion;
 use App\Models\StudentAnswer;
+use App\Models\StudentAnswerPair;
 use App\Models\StudentExam;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
 
 class AdminExamController extends Controller
@@ -94,14 +96,26 @@ class AdminExamController extends Controller
     function generatePdf($id)
     {
         $student_exams = StudentExam::where('exam_id', '=', $id)->get();
-        dd($student_exams);
+        // dd($student_exams);
+
+        // $result = array();
+        // $student_test;
+        // $student_test->id = $ais;
 
         $students_answers = array();
         $student_answers_pairs = array();
         foreach ($student_exams as $student_exam) {
+            dump($student_exam->ais);
             $answers = StudentAnswer::where('student_exam_id', '=', $student_exam->id)->get();
             array_push($students_answers, $answers);
+            $pair_answers = StudentAnswerPair::where('student_exam_id', '=', $student_exam->id)->get();
+            array_push($student_answers_pairs, $pair_answers);
         }
+
+        $pdf = PDF::loadView('pdf_view', $student_exams);
+
+        // download PDF file with download method
+        return $pdf->download('pdf_file.pdf');
     }
 
     function generateCsv($id)

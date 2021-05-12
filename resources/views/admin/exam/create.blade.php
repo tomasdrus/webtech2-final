@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Admin - question create')
+@section('title', 'Admin - create exam')
 @section('content')
 
 <div class="bg-white p-5 m-5 rounded-lg">
