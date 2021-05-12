@@ -12,11 +12,7 @@
 
 <body>
     <div class="container mt-5">
-        <h3>CSV generated</h3>
-        <form action="{{ route('admin.csv.generate') }} " method="GET">
-            @csrf
-            <button type="submit" class="px-1 text-red-500 hover:text-red-600">Download file</button>
-        </form>
+        <h3>CSV generation failed</h3>
     </div>
 
     <script src="{{ asset('js/app.js') }}" type="text/js"></script>

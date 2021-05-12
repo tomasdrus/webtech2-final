@@ -42,9 +42,10 @@ Route::group(['middleware' => ['AdminCheck']], function () {
     Route::patch('admin/exam/update/{id}', [AdminExamController::class, 'update'])->name('admin.exam.update');
     /* Test export */
     Route::get('admin/pdf/{id}', [PdfController::class, 'showPdf'])->name('admin.pdf.show');
-    Route::get('admin/csv/{id}', [CsvController::class, 'showCsv'])->name('admin.csv.show');
+    Route::get('admin/csv/{id}', [CsvController::class, 'generateCsv'])->name('admin.csv.show');
 
     Route::get('admin/generate/pdf/{id}', [PdfController::class, 'generatePdf'])->name('admin.pdf.generate');
+    Route::get('admin/generate/csv', [CsvController::class, 'downloadCsv'])->name('admin.csv.generate');
 
     /* Student */
     Route::get('admin/student', [AdminStudentController::class, 'active'])->name('admin.student');
