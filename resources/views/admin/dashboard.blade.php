@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="bg-white p-5 m-5 rounded-lg">
-    <h4 class="font-semibold mb-3">Active exams</h4>
+    <h4 class="font-semibold mb-3">Activate exams</h4>
 
     @if (Session::get('success'))
         <p class="px-4 py-3 mb-3 bg-green-200 text-green-800 rounded">{{ Session::get('success') }}</p>

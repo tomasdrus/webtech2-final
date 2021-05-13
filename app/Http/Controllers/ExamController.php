@@ -46,21 +46,23 @@ class ExamController extends Controller
     function check(Request $request)
     {
         $request->validate([
-
             'forename' => 'required',
             'surname' => 'required',
             'ais' => 'required',
             'token' => 'required|exists:exams',
         ]);
 
-        $exam = Exam::where('token', '=', $request->token)->first();
+        $exam = Exam::where('token', $request->token)->where('active', 1)->first();
+        if(!$exam){
+            return back()->with('error', 'Exam is not activated')->withInput();
+        }
 
         $studentExam = StudentExam::create([
             'forename' => $request->forename,
             'surname' => $request->surname,
             'ais' => $request->ais,
             'status' => true,
-            'start' => now(),
+            'start' => now('Europe/Bratislava'),
             'exam_id' => $exam->id,
         ]);
 
@@ -77,8 +79,8 @@ class ExamController extends Controller
     function finish(Request $request)
     {
         $studentExam = StudentExam::where('id', session('StudentExam'))->first();
-
-        $studentExam->update(['end' => now()]);
+        $studentExam->end = now('Europe/Bratislava');
+        $studentExam->save();
 
         foreach ($request->all() as $key => $value) {
             if ($key == '_token') {

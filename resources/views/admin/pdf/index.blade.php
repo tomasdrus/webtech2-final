@@ -24,7 +24,7 @@
         </div>
 
         @foreach($tests as $test)
-        <h3 class="text-lg text-red-500 hover:text-red-600"">AIS id: {{$test->ais}}</h3>
+        <h3 class="text-lg text-red-500 hover:text-red-600">AIS id: {{$test->ais}}</h3>
         @foreach($test->questions_with_answers as $questions_with_answers)
         <p>{{$questions_with_answers->question}}: {{$questions_with_answers->answer}}</p>
         @endforeach

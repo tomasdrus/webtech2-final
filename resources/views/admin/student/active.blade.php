@@ -20,7 +20,6 @@
                 <th class="py-3 px-4 font-semibold text-sm">Student name</th>
                 <th class="py-3 px-4 font-semibold text-sm text-center">Student AIS</th>
                 <th class="py-3 px-4 font-semibold text-sm text-center">Exam ID</th>
-                <th class="py-3 px-4 font-semibold text-sm text-center w-20">Detail</th>
             </th></tr>
         </thead>
         <tbody class="text-gray-600">
@@ -31,15 +30,11 @@
                 <td class="py-3 px-4 border border-gray-200">{{ $studentExam->forename }} {{ $studentExam->surname }}</td>
                 <td class="py-3 px-4 border border-gray-200 text-center">{{ $studentExam->ais }}</td>
                 <td class="py-3 px-4 border border-gray-200 text-center">{{ $studentExam->exam_id }}</td>
-                <td class="border border-gray-200 text-center">
-                    <a href="{{ route('admin.student.detail',['id' => $studentExam->id])}}" class="px-1 text-blue-500 hover:text-blue-600"><i class="far fa-eye"></i></a>   
-                </td>
             </tr>
             @empty
                 <tr>
                     <td class="py-3 px-4 border border-gray-200 text-center text-yellow-500">X</td>
                     <td class="py-3 px-4 border border-gray-200 text-yellow-500">none</td>
-                    <td class="py-3 px-4 border border-gray-200 text-center text-yellow-500">none</td>
                     <td class="py-3 px-4 border border-gray-200 text-center text-yellow-500">none</td>
                     <td class="py-3 px-4 border border-gray-200 text-center text-yellow-500">none</td>
                 </tr>

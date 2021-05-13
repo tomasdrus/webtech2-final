@@ -35,13 +35,13 @@
                 <td class="border border-gray-200 text-center">
                     <form action="{{ route('admin.pdf.show',['id' => $exam->id])}} " method="GET">
                         @csrf
-                        <button type="submit" class="px-1 text-red-500 hover:text-red-600"><i class="far fa-file-pdf"></i></button>
+                        <button type="submit" class="px-1 text-blue-500 hover:text-blue-600"><i class="far fa-file-pdf"></i></button>
                     </form>
                 </td>
                 <td class="border border-gray-200 text-center">
                     <form action="{{ route('admin.csv.show',['id' => $exam->id])}} " method="GET">
                         @csrf
-                        <button type="submit" class="px-1 text-red-500 hover:text-red-600"><i class="far fa-file-csv"></i></button>
+                        <button type="submit" class="px-1 text-green-500 hover:text-green-600"><i class="far fa-file-csv"></i></button>
                     </form>
                 </td>
                 <td class="border border-gray-200 text-center">

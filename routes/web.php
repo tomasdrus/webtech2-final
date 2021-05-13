@@ -40,6 +40,7 @@ Route::group(['middleware' => ['AdminCheck']], function () {
     Route::post('admin/exam/save', [AdminExamController::class, 'save'])->name('admin.exam.save');
     Route::delete('admin/exam/destroy/{id}', [AdminExamController::class, 'destroy'])->name('admin.exam.destroy');
     Route::patch('admin/exam/update/{id}', [AdminExamController::class, 'update'])->name('admin.exam.update');
+    
     /* Test export */
     Route::get('admin/pdf/{id}', [PdfController::class, 'showPdf'])->name('admin.pdf.show');
     Route::get('admin/csv/{id}', [CsvController::class, 'generateCsv'])->name('admin.csv.show');
