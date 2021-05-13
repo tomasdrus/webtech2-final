@@ -6,7 +6,7 @@
 <div class="bg-white p-5 m-5 rounded-lg">
     <h4 class="font-semibold mb-5">Check student exam: <span class="text-blue-500 font-bold text-lg">{{ $questions->student->forename }} {{ $questions->student->surname }} {{ $questions->student->ais }}</span></h4>
 
-    <form action="{{ route('exam.finish')}}" method="post">
+    <form action="{{ route('admin.student.change')}}" method="post">
 
         @csrf
         <h1></h1>
@@ -25,7 +25,9 @@
                             </p>
                             <label>
                                 Rightness:
-                                <input type="checkbox" name="{{$question->answer->id}}" @if($question->answer->rightness) checked @endif>
+                                {{-- <input type="checkbox" name="{{$question->answer->id}}" @if($question->answer->rightness) checked @endif> --}}
+                                <input type="hidden" value="0" name="answer[{{ $question->answer->id }}]">
+                                <input type="checkbox" value="1" name="answer[{{ $question->answer->id }}]" @if($question->answer->rightness) checked @endif>
                             </label>
                         </div>
                     @endif
@@ -36,7 +38,9 @@
                                 <p><span class="font-semibold mr-3">Answer: </span>{{$pair->option}}<span class="text-xl text-blue-500 font-semibold mx-1">~</span>{{$pair->answer}}</p>
                                 <label>
                                     Rightness:
-                                    <input type="checkbox" name="{{$pair->id}}" @if($pair->rightness) checked @endif>
+                                    {{-- <input type="checkbox" name="{{$pair->id}}" @if($pair->rightness) checked @endif> --}}
+                                    <input type="hidden" value="0" name="answer[{{ $pair->id }}]">
+                                    <input type="checkbox" value="1" name="answer[{{ $pair->id }}]" @if($pair->rightness) checked @endif>
                                 </label>
                             </div>
                         @endforeach
@@ -50,7 +54,10 @@
                             </p>
                             <label>
                                 Rightness:
-                                <input type="checkbox" name="{{$question->answer->id}}" @if($question->answer->rightness) checked @endif>
+                                {{-- <input type="checkbox" name="{{$question->answer->id}}" @if($question->answer->rightness) checked @endif> --}}
+                                <input type="hidden" value="0" name="answer[{{ $question->answer->id }}]">
+                                <input type="checkbox" value="1" name="answer[{{ $question->answer->id }}]" @if($question->answer->rightness) checked @endif>
+                                
                             </label>
                         </div>
                         @if ($question->answer->answer != null)<img src="{{$question->answer->answer}}"/> @endif
@@ -65,7 +72,10 @@
                             </p>
                             <label>
                                 Rightness:
-                                <input type="checkbox" name="{{$question->answer->id}}" @if($question->answer->rightness) checked @endif>
+                                {{-- <input type="checkbox" name="{{$question->answer->id}}" @if($question->answer->rightness) checked @endif> --}}
+                                <input type="hidden" value="0" name="answer[{{ $question->answer->id }}]">
+                                <input type="checkbox" value="1" name="answer[{{ $question->answer->id }}]" @if($question->answer->rightness) checked @endif>
+                                
                             </label>
                         </div>
                     @endif

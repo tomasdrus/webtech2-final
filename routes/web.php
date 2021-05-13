@@ -52,6 +52,7 @@ Route::group(['middleware' => ['AdminCheck']], function () {
     Route::get('admin/student', [AdminStudentController::class, 'active'])->name('admin.student');
     Route::get('admin/student/finished', [AdminStudentController::class, 'finished'])->name('admin.student.finished');
     Route::get('admin/student/detail/{id}', [AdminStudentController::class, 'detail'])->name('admin.student.detail');
+    Route::post('admin/student/change', [AdminStudentController::class, 'change'])->name('admin.student.change');
 
     /* Question */
     Route::get('admin/question', [AdminQuestionController::class, 'index'])->name('admin.question');
