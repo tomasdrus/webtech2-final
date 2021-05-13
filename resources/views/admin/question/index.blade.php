@@ -10,8 +10,7 @@
             <tr>
                 <th class="py-3 px-4 font-semibold text-sm w-5">Id</th>
                 <th class="py-3 px-4 font-semibold text-sm">name</th>
-                <th class="py-3 px-4 font-semibold text-sm w-24">type</th>
-                <th class="py-3 px-4 font-semibold text-sm text-right w-24">Actions</th>
+                <th class="py-3 px-4 font-semibold text-sm text-center w-24">type</th>
             </th></tr>
         </thead>
         <tbody class="text-gray-600">
@@ -19,17 +18,13 @@
             <tr>
                 <td class="py-3 px-4 border border-gray-200">{{ $question->id }}</td>
                 <td class="py-3 px-4 border border-gray-200 max-w-xs overflow-hidden whitespace-nowrap">{{ $question->name }}</td>
-                <td class="py-3 px-4 border border-gray-200">{{ $question->type }}</td>
-                <td class="border border-gray-200">
-                    <div class="flex content-center justify-center">
-                        <a href="#" class="px-1 mr-1 text-yellow-500 hover:text-yellow-600"><i class="far fa-edit"></i></a>
-                        <a href="#" class="px-1 text-red-500 hover:text-red-600"><i class="far fa-trash-alt"></i></a>
-                    </div>
-                </td>
+                <td class="py-3 px-4 border border-gray-200 text-center">{{ $question->type }}</td>
             </tr>
             @empty
                 <tr>
-                    <td>žiadne otazky</td>
+                    <td class="py-3 px-4 border border-gray-200 text-center text-yellow-500">X</td>
+                    <td class="py-3 px-4 border border-gray-200 text-yellow-500">No exams found in database</td>
+                    <td class="py-3 px-4 border border-gray-200 text-center text-yellow-500">none</td>
                 </tr>
             @endforelse
         </tbody>

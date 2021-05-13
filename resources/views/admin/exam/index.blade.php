@@ -21,7 +21,6 @@
                 <th class="py-3 px-4 font-semibold text-sm text-center w-24">length</th>
                 <th class="py-3 px-4 font-semibold text-sm text-center w-24">PDF</th>
                 <th class="py-3 px-4 font-semibold text-sm text-center w-24">CSV</th>
-                <th class="py-3 px-4 font-semibold text-sm text-center w-20">delete</th>
                 </th>
             </tr>
         </thead>
@@ -44,18 +43,12 @@
                         <button type="submit" class="px-1 text-green-500 hover:text-green-600"><i class="far fa-file-csv"></i></button>
                     </form>
                 </td>
-                <td class="border border-gray-200 text-center">
-                    <form action="{{ route('admin.exam.destroy',['id' => $exam->id])}} " method="POST">
-                        @method('DELETE')
-                        @csrf
-                        <button type="submit" class="px-1 text-red-500 hover:text-red-600"><i class="far fa-trash-alt"></i></button>
-                    </form>
-                </td>
             </tr>
             @empty
             <tr>
                 <td class="py-3 px-4 border border-gray-200 text-center text-yellow-500">X</td>
                 <td class="py-3 px-4 border border-gray-200 text-yellow-500">No exams found in database</td>
+                <td class="py-3 px-4 border border-gray-200 text-center text-yellow-500">none</td>
                 <td class="py-3 px-4 border border-gray-200 text-center text-yellow-500">none</td>
                 <td class="py-3 px-4 border border-gray-200 text-center text-yellow-500">none</td>
             </tr>
