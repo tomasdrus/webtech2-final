@@ -36,7 +36,7 @@
         </label>
         <input type="password" name="password" value="{{ old('password') }}" class="border border-gray-600 rounded-md px-3 py-2 mb-5 text-sm w-full focus:outline-none focus:ring-1 focus:ring-blue-600">
 
-        <label for="token" class="font-semibold text-sm text-gray-900 mb-2 block">Token
+        <label for="token" class="font-semibold text-sm text-gray-900 mb-2 block">Registration token
             <span class="text-red-500 ml-1">@error('token') {{$message}} @enderror</span>
         </label>
         <input type="text" name="token" value="{{ old('token') }}" class="border border-gray-600 rounded-md px-3 py-2 mb-5 text-sm w-full focus:outline-none focus:ring-1 focus:ring-blue-600">

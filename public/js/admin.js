@@ -69,9 +69,12 @@ dropdowns.forEach(dropdown => {
         buttonAdd.addEventListener('click', () => {
             const elementCopy = buttonAdd.previousElementSibling.cloneNode(true);
             const buttonDel = elementCopy.querySelector('button');
-            const input = elementCopy.querySelector('input');
+            const inputs = elementCopy.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.value = ''
+                input.checked = false
+            })
             buttonDel.addEventListener('click', functionDel);
-            //input.value = null;
             container.insertBefore(elementCopy, buttonAdd);
             functionIndexing(containerId);
         })

@@ -5,6 +5,14 @@
 <div class="bg-white p-5 m-5 rounded-lg">
     <h4 class="font-semibold mb-3">All questions</h4>
 
+    @if (Session::get('success'))
+    <p class="px-4 py-3 mb-3 bg-green-200 text-green-800 rounded">{{ Session::get('success') }}</p>
+    @endif
+
+    @if (Session::get('error'))
+    <p class="px-4 py-3 mb-3 bg-red-200 text-red-800 rounded">{{ Session::get('error') }}</p>
+    @endif
+
     <table class="w-full bg-white border border-gray-200">
         <thead class="bg-gray-200 text-gray-700 text-sm uppercase font-semibold text-left">
             <tr>

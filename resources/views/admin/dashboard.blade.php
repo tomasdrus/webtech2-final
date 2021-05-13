@@ -3,6 +3,10 @@
 @section('content')
 
 <div class="bg-white p-5 m-5 rounded-lg">
+    <h4 class="font-semibold">Admin registration token: <span class="text-blue-500">budemadmin</span></h4>
+</div>
+
+<div class="bg-white p-5 m-5 mt-0 rounded-lg">
     <h4 class="font-semibold mb-3">Activate exams</h4>
 
     @if (Session::get('success'))

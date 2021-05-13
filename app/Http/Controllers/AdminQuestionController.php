@@ -42,7 +42,7 @@ class AdminQuestionController extends Controller
                 $option->rightness = true;
 
                 if($option->save()){
-                    return back()->with('success', 'New question');
+                    return redirect('admin/question')->with('success', 'New question added');
                 }
             }
 
@@ -60,7 +60,7 @@ class AdminQuestionController extends Controller
                         return back()->with('error', 'Question not created');
                     }
                 }
-                return back()->with('success', 'New question');
+                return redirect('admin/question')->with('success', 'New question added');
             }
 
             if($request->type == 'pairing'){
@@ -77,11 +77,11 @@ class AdminQuestionController extends Controller
                         return back()->with('error', 'Question not created');
                     }
                 }
-                return back()->with('success', 'New question');
+                return redirect('admin/question')->with('success', 'New question added');
             }
 
         }
-        return back()->with('error', 'Question not created');
+        return redirect('admin/question')->with('error', 'Question was not created');
     }
     
 }

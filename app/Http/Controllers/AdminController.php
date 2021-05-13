@@ -30,7 +30,7 @@ class AdminController extends Controller
             'surname'=>'required',
             'email'=>'required|email|unique:teachers',
             'password'=>'required|min:5|max:15',
-            'token'=>'required',
+            'token'=>'required|in:budemadmin',
         ]);
         $teacher = new Teacher;
         $teacher->forename = $request->forename;
@@ -40,9 +40,9 @@ class AdminController extends Controller
         $teacher->token = $request->token;
 
         if($teacher->save()){
-            return back()->with('success', 'New teacher');
+            return redirect('/')->with('success', 'Your new admin account was created');
         }
-        return back()->with('error', 'Teacher not created');
+        return back()->with('error', 'New admin account was not created');
     }
 
     function check (Request $request) {
