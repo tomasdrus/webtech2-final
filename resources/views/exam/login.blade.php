@@ -36,8 +36,7 @@
     
         @csrf
 
-        <button type="submit" class="auth__button">Start exam</button>
+        <button type="submit" class="auth__button" >Start exam</button>
     </form>
-</div>
-
+</div>>
 @endsection

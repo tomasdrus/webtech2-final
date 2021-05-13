@@ -2,17 +2,22 @@
 @section('title', $exam->name)
 @section('content')
 
+<?php
+session_start();
+?>
 <header class="fixed top-0 bg-white w-full py-4 shadow-md">
     <div class="container max-w-screen-xl mx-auto px-4">
         <div class="flex justify-between px-2">
             <span>{{ $student->forename }} {{ $student->surname }} {{ $student->ais }}</span>
-            <span>{{ $exam->length }}</span>
+          
+            <p id="displayTime"></p>
+            
         </div>
     </div>
 </header>
 
 <div class="container max-w-screen-xl mx-auto px-4 my-20">
-    <form action="{{ route('exam.finish')}}" method="post" class="bg-white p-7 rounded-md">
+    <form action="{{ route('exam.finish')}}" method="post" class="bg-white p-7 rounded-md" id="examForm">
 
         @csrf
         
@@ -82,11 +87,41 @@
         @endforeach
 
         {{-- Submit button --}}
-        <button type="submit" class="block bg-red-500 hover:bg-red-600 focus:bg-red-600 focus:outline-none text-white py-2 px-10 rounded-md text-sm font-semibold mx-auto">Finish exam</button>
+        <button type="submit" id='sendExam'  href="logout.php" class="block bg-red-500 hover:bg-red-600 focus:bg-red-600 focus:outline-none text-white py-2 px-10 rounded-md text-sm font-semibold mx-auto">Finish exam</button>
 
     </form>
 </div>
 
 <script type="text/javascript" src="{{ asset('js/drawing.js') }}"></script>
 
+<?php
+
+
+if(!isset($_SESSION['countdown'])){
+    $time =($exam->length )*60;
+    $_SESSION['countdown'] = $time;
+    $_SESSION['time_started'] = time();
+}
+
+//Get the current timestamp.
+$now = time();
+
+//Calculate how many seconds have passed since
+//the countdown began.
+$timeSince = $now - $_SESSION['time_started'];
+
+//How many seconds are remaining?
+$remainingSeconds = abs($_SESSION['countdown'] - $timeSince);
+
+//Print out the countdown.
+echo "<div hidden id=\"examTime\">{$remainingSeconds}</div>";
+
+
+//Check if the countdown has finished.
+if($remainingSeconds < 1){
+   //Finished! Do something.
+   session_destroy();
+}
+?>
+<script type="text/javascript" src="{{ asset('js/countdown.js') }}"></script>
 @endsection

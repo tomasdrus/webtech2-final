@@ -75,7 +75,7 @@ class ExamController extends Controller
 
 
     function finish(Request $request)
-    {
+    {   
         $studentExam = StudentExam::where('id', session('StudentExam'))->first();
 
         $studentExam->update(['end' => now()]);
@@ -113,6 +113,10 @@ class ExamController extends Controller
         }
 
         session()->pull('StudentExam');
+        
+        session_start();
+        session_destroy();
         return redirect('/')->with('success', 'Exam finished');
+        
     }
 }
