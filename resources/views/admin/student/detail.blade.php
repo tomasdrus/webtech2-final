@@ -2,14 +2,12 @@
 @section('title', 'Admin - student exam detail')
 @section('content')
 
-
 <div class="bg-white p-5 m-5 rounded-lg">
     <h4 class="font-semibold mb-5">Check student exam: <span class="text-blue-500 font-bold text-lg">{{ $questions->student->forename }} {{ $questions->student->surname }} {{ $questions->student->ais }}</span></h4>
 
     <form action="{{ route('admin.student.change')}}" method="post">
 
         @csrf
-        <h1></h1>
         @foreach ($questions as $question)
             <div class="flex">
                 <span class="font-semibold w-10">{{ $loop->iteration }}.</span>
@@ -25,7 +23,6 @@
                             </p>
                             <label>
                                 Rightness:
-                                {{-- <input type="checkbox" name="{{$question->answer->id}}" @if($question->answer->rightness) checked @endif> --}}
                                 <input type="hidden" value="0" name="answer[{{ $question->answer->id }}]">
                                 <input type="checkbox" value="1" name="answer[{{ $question->answer->id }}]" @if($question->answer->rightness) checked @endif>
                             </label>
@@ -38,7 +35,6 @@
                                 <p><span class="font-semibold mr-3">Answer: </span>{{$pair->option}}<span class="text-xl text-blue-500 font-semibold mx-1">~</span>{{$pair->answer}}</p>
                                 <label>
                                     Rightness:
-                                    {{-- <input type="checkbox" name="{{$pair->id}}" @if($pair->rightness) checked @endif> --}}
                                     <input type="hidden" value="0" name="answer[{{ $pair->id }}]">
                                     <input type="checkbox" value="1" name="answer[{{ $pair->id }}]" @if($pair->rightness) checked @endif>
                                 </label>
@@ -54,7 +50,6 @@
                             </p>
                             <label>
                                 Rightness:
-                                {{-- <input type="checkbox" name="{{$question->answer->id}}" @if($question->answer->rightness) checked @endif> --}}
                                 <input type="hidden" value="0" name="answer[{{ $question->answer->id }}]">
                                 <input type="checkbox" value="1" name="answer[{{ $question->answer->id }}]" @if($question->answer->rightness) checked @endif>
                                 
@@ -68,11 +63,10 @@
                             <p>
                                 <span class="font-semibold mr-3">Answer: </span>
                                 @if ($question->answer->answer == null)No answer was submitted @endif
-                                {{$question->answer->answer}}
+                                \[{{$question->answer->answer}}\]
                             </p>
                             <label>
                                 Rightness:
-                                {{-- <input type="checkbox" name="{{$question->answer->id}}" @if($question->answer->rightness) checked @endif> --}}
                                 <input type="hidden" value="0" name="answer[{{ $question->answer->id }}]">
                                 <input type="checkbox" value="1" name="answer[{{ $question->answer->id }}]" @if($question->answer->rightness) checked @endif>
                                 
@@ -89,5 +83,7 @@
 
     </form>
 </div>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.0.1/es5/tex-mml-chtml.js"></script>
 
 @endsection

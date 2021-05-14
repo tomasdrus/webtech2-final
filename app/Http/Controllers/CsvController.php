@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\StudentExam;
 use Exception;
+use App\Models\StudentExam;
+use App\Models\StudentAnswer;
+use App\Models\StudentAnswerPair;
+use Illuminate\Routing\Controller;
 
 class CsvController extends Controller
 {
@@ -16,20 +19,23 @@ class CsvController extends Controller
             $file = fopen('results.csv', 'w');
             fputcsv($file, $columns);
 
-            foreach ($student_exams as $student_exam) {
-                $row['AIS']  = $student_exam->ais;
-                $row['Name']    = $student_exam->forename;
-                $row['Surname']    = $student_exam->surname;
-                //TODO: BODY SU NA TVRDO KED SA PRIDAJU DO DB TREBA ICH PRIDAT DO row['Points']
-                $row['Points']  = 4;
+            foreach ($student_exams as $student_exam) {    
+                $score = StudentAnswer::where('student_exam_id', $student_exam->id)->where('rightness', true)->count();
+                $score += StudentAnswerPair::where('student_exam_id', $student_exam->id)->where('rightness', true)->count();
+
+                $row['AIS'] = $student_exam->ais;
+                $row['Name'] = $student_exam->forename;
+                $row['Surname'] = $student_exam->surname;
+                $row['Points'] = $score;
 
                 fputcsv($file, array($row['AIS'], $row['Name'], $row['Surname'], $row['Points']));
             }
             fclose($file);
+            $this->downloadCsv();
 
-            return view('csv.index');
+            return view('admin.exam');
         } catch (Exception $e) {
-            return view('csv.error');
+            return view('admin.exam');
         }
     }
 
@@ -47,7 +53,7 @@ class CsvController extends Controller
 
             flush();
             readfile($filename);
-            die();
+            //die();
         }
     }
 }

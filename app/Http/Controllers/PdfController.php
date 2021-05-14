@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use stdClass;
+use App\Models\Exam;
 use App\Models\Question;
+use App\Models\StudentExam;
+use Illuminate\Http\Request;
 use App\Models\StudentAnswer;
 use App\Models\StudentAnswerPair;
-use App\Models\StudentExam;
 use Barryvdh\DomPDF\Facade as PDF;
-use Illuminate\Http\Request;
-use stdClass;
 
 class PdfController extends Controller
 {
@@ -17,33 +18,20 @@ class PdfController extends Controller
         $tests = array();
         $student_exams = StudentExam::where('exam_id', '=', $id)->get();
 
-        foreach ($student_exams as $student_exam) {
-            $test = new stdClass();
-            $test->ais = $student_exam->ais;
-
-            $questions_with_answers = array();
-            $answers = StudentAnswer::where('student_exam_id', '=', $student_exam->id)->get();
-
-            foreach ($answers as $answer) {
-                $question = Question::select('name')->where('id', '=', $answer->question_id)->get()->first();
-                $question_with_answer = new stdClass();
-                $question_with_answer->question = $question->name;
-                $question_with_answer->answer = $answer->answer;
-                array_push($questions_with_answers, $question_with_answer);
+        foreach ($student_exams as $studentExam) {
+            $exam = Exam::find($studentExam->exam_id);
+    
+            $questions = $exam->questions;
+            $questions->student = $studentExam;
+            foreach ($questions as $question) {
+                if ($question->type == 'pairing') {
+                    $question->pairs = StudentAnswerPair::where('student_exam_id', $studentExam->id)->get();
+                    continue;
+                }
+                $question->answer = StudentAnswer::where('student_exam_id', $studentExam->id)->where('question_id', $question->id)->first();
             }
+            array_push($tests, $questions); 
 
-            $pair_answers = StudentAnswerPair::where('student_exam_id', '=', $student_exam->id)->get();
-
-            foreach ($pair_answers as $pair_answer) {
-                $pair_question = Question::select('name')->where('id', '=', $pair_answer->question_id)->get()->first();
-                $pair_question_with_answer = new stdClass();
-                $pair_question_with_answer->question = $pair_question->name;
-                $pair_question_with_answer->answer = $pair_answer->option . ': ' . $pair_answer->answer;
-                array_push($questions_with_answers, $pair_question_with_answer);
-            }
-            $test->questions_with_answers = $questions_with_answers;
-            // dd($test->question_with_answers);
-            array_push($tests, $test);
         }
         return $tests;
     }

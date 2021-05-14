@@ -115,6 +115,8 @@ class ExamController extends Controller
         }
 
         session()->pull('StudentExam');
+        session_start();
+        session_destroy();
         return redirect('/')->with('success', 'Exam finished');
     }
 }

@@ -43,11 +43,22 @@ class ExamSeeder extends Seeder
             ]);
         } 
 
+        /* Math question */
+        DB::table('questions')->insert([
+            'name' => $faker->sentence(10, true),
+            'type' => 'mathematic',
+        ]);
+        DB::table('options')->insert([
+            'answer' => '',
+            'rightness' => false,
+            'question_id' => 3,
+        ]);
+
         /* Other questions */
         foreach (range(1,7) as $index) {
 	        DB::table('questions')->insert([
 	            'name' => $faker->sentence(10, true),
-	            'type' => $faker->randomElement(['classical', 'drawing', 'mathematical']),
+	            'type' => $faker->randomElement(['classical', 'drawing']),
 	        ]);
 	    }
         $questions = DB::table('questions')->where('type', 'classical')->pluck('id');
