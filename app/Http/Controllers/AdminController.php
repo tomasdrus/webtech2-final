@@ -23,6 +23,16 @@ class AdminController extends Controller
     function registration() {
         return view('admin/auth/registration');
     }
+    
+    function tasks() {
+        $teacher = ['LoggedTeacherInfo'=>Teacher::where('id','=', session('LoggedTeacher'))->first()];
+        return view('admin/info/tasks')->with($teacher);
+    }
+
+    function documentation() {
+        $teacher = ['LoggedTeacherInfo'=>Teacher::where('id','=', session('LoggedTeacher'))->first()];
+        return view('admin/info/documentation')->with($teacher);
+    }
 
     function save (Request $request) {
         $request->validate([

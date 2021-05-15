@@ -46,7 +46,7 @@ class ExamSeeder extends Seeder
         /* Math question */
         DB::table('questions')->insert([
             'name' => $faker->sentence(10, true),
-            'type' => 'mathematic',
+            'type' => 'drawing',
         ]);
         DB::table('options')->insert([
             'answer' => '',
@@ -58,7 +58,7 @@ class ExamSeeder extends Seeder
         foreach (range(1,7) as $index) {
 	        DB::table('questions')->insert([
 	            'name' => $faker->sentence(10, true),
-	            'type' => $faker->randomElement(['classical', 'drawing']),
+	            'type' => $faker->randomElement(['classical', 'mathematic']),
 	        ]);
 	    }
         $questions = DB::table('questions')->where('type', 'classical')->pluck('id');

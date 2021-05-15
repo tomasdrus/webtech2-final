@@ -58,6 +58,10 @@ Route::group(['middleware' => ['AdminCheck']], function () {
     Route::get('admin/question', [AdminQuestionController::class, 'index'])->name('admin.question');
     Route::get('admin/question/create', [AdminQuestionController::class, 'create'])->name('admin.question.create');
     Route::post('admin/question/save', [AdminQuestionController::class, 'save'])->name('admin.question.save');
+
+    /* Info */
+    Route::get('admin/info', [AdminController::class, 'tasks'])->name('admin.info');
+    Route::get('admin/info/documentation', [AdminController::class, 'documentation'])->name('admin.info.documentation');
 });
 
 
