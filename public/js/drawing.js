@@ -27,7 +27,6 @@ function stop() {
   drawing = false;
   prevX = prevY = null;
   input.value = canvas.toDataURL();
-  console.log(canvas.toDataURL());
 }
 
 function draw(e) {
@@ -35,8 +34,9 @@ function draw(e) {
     return;
   }
   
-  var clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
-  var clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+  var clientX = e.type === 'touchmove' ? e.touches[0].pageX : e.pageX;
+  var clientY = e.type === 'touchmove' ? e.touches[0].pageY : e.pageY;
+
   currX = clientX - canvas.offsetLeft;
   currY = clientY - canvas.offsetTop;
   if (!prevX && !prevY) {
