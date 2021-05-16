@@ -24,7 +24,7 @@
                     <label>
                         Rightness:
                         <input type="hidden" value="0" name="answer[{{ $question->answer->id }}-{{ $question->type }}]">
-                        <input type="checkbox" value="1" name="answer[{{ $question->answer->id }}]" @if($question->answer->rightness) checked @endif>
+                        <input type="checkbox" value="1" name="answer[{{ $question->answer->id }}-{{ $question->type }}]" @if($question->answer->rightness) checked @endif>
                     </label>
                 </div>
                 @endif
@@ -36,7 +36,7 @@
                     <label>
                         Rightness:
                         <input type="hidden" value="0" name="answer[{{ $pair->id }}-{{ $question->type }}]">
-                        <input type="checkbox" value="1" name="answer[{{ $pair->id }}]" @if($pair->rightness) checked @endif>
+                        <input type="checkbox" value="1" name="answer[{{ $pair->id }}-{{ $question->type }}]" @if($pair->rightness) checked @endif>
                     </label>
                 </div>
                 @endforeach
@@ -51,7 +51,7 @@
                     <label>
                         Rightness:
                         <input type="hidden" value="0" name="answer[{{ $question->answer->id }}-{{ $question->type }}]">
-                        <input type="checkbox" value="1" name="answer[{{ $question->answer->id }}]" @if($question->answer->rightness) checked @endif>
+                        <input type="checkbox" value="1" name="answer[{{ $question->answer->id }}-{{ $question->type }}]" @if($question->answer->rightness) checked @endif>
                     </label>
                 </div>
                 @if ($question->answer->answer != null)<img src="{{$question->answer->answer}}" /> @endif
@@ -67,7 +67,7 @@
                     <label>
                         Rightness:
                         <input type="hidden" value="0" name="answer[{{ $question->answer->id }}-{{ $question->type }}]">
-                        <input type="checkbox" value="1" name="answer[{{ $question->answer->id }}]" @if($question->answer->rightness) checked @endif>
+                        <input type="checkbox" value="1" name="answer[{{ $question->answer->id }}-{{ $question->type }}]" @if($question->answer->rightness) checked @endif>
                     </label>
                 </div>
                 @endif
