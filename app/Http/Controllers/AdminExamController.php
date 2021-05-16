@@ -96,11 +96,6 @@ class AdminExamController extends Controller
     function generatePdf($id)
     {
         $student_exams = StudentExam::where('exam_id', '=', $id)->get();
-        // dd($student_exams);
-
-        // $result = array();
-        // $student_test;
-        // $student_test->id = $ais;
 
         $students_answers = array();
         $student_answers_pairs = array();
@@ -116,9 +111,5 @@ class AdminExamController extends Controller
 
         // download PDF file with download method
         return $pdf->download('pdf_file.pdf');
-    }
-
-    function generateCsv($id)
-    {
     }
 }
