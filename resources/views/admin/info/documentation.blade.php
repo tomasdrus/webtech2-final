@@ -24,7 +24,7 @@
             </tr>
             <tr>
                 <td class="py-3 px-4 border border-gray-200">csv</td>
-                <td class="py-3 px-4 border border-gray-200 text-center">Použili sme: fputcsv</td>
+                <td class="py-3 px-4 border border-gray-200 text-center">We used: fputcsv</td>
             </tr>
             <tr>
                 <td class="py-3 px-4 border border-gray-200">image</td>
