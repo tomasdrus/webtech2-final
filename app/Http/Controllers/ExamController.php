@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Exam;
 use App\Models\Pair;
 use App\Models\Option;
-use App\Models\Question;
 use App\Models\StudentExam;
-use App\Models\ExamQuestion;
 use Illuminate\Http\Request;
 use App\Models\StudentAnswer;
 use App\Models\StudentAnswerPair;
@@ -53,7 +51,7 @@ class ExamController extends Controller
         ]);
 
         $exam = Exam::where('token', $request->token)->where('active', 1)->first();
-        if(!$exam){
+        if (!$exam) {
             return back()->with('error', 'Exam is not activated')->withInput();
         }
 
