@@ -55,12 +55,12 @@ class AdminExamController extends Controller
                 $exam_question->question_id = $questions[$i];
 
                 if (!$exam_question->save()) {
-                    return back()->with('error', 'Question not created');
+                    return redirect('admin/exam')->with('error', 'No exam added');
                 }
             }
-            return back()->with('success', 'New question');
+            return redirect('admin/exam')->with('success', 'New exam added');
         }
-        return back()->with('error', 'Question not created');
+        return redirect('admin/exam')->with('error', 'No exam added');
     }
 
     function destroy($id)
